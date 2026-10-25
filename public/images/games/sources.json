@@ -1,0 +1,64 @@
+[
+  {
+    "id": "rov",
+    "file": "rov.jpg",
+    "page": "https://www.rov.in.th/",
+    "source": "https://cdn-webth.garenanow.com/webth/cdn/gth/rov/non-events/official/b9dc520062906be46cdf4f48cf8086bf.jpg",
+    "bytes": 159647,
+    "type": "image/jpeg"
+  },
+  {
+    "id": "freefire",
+    "file": "freefire.jpg",
+    "page": "https://ff.garena.com/en/",
+    "source": "https://cdn.wildflamestudio.com/common/web_event/official2.ff.garena.all/img/20228/65fef1213324415a00e170bef3a51e2b.jpg",
+    "bytes": 231794,
+    "type": "image/jpeg"
+  },
+  {
+    "id": "genshin",
+    "file": "genshin.jpg",
+    "page": "https://genshin.hoyoverse.com/en/home",
+    "source": "https://upload-static.hoyoverse.com/hk4e/upload/fb/common.jpg",
+    "bytes": 271536,
+    "type": "image/jpeg"
+  },
+  {
+    "id": "valorant",
+    "file": "valorant.png",
+    "page": "https://playvalorant.com/en-us/",
+    "source": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/1d62a3751be9d7abfce84da8ca89be7d79f07fed-1232x1232.png",
+    "bytes": 996032,
+    "type": "image/png"
+  },
+  {
+    "id": "mlbb",
+    "file": "mlbb.png",
+    "page": "https://play.google.com/store/apps/details?id=com.mobile.legends&hl=en",
+    "source": "https://play-lh.googleusercontent.com/MztmLpB1-_eFbHnqNzzvzl5zjiOH2BEb0D71uBxZYf_4BEmW3QEPWODhRtyqY7Qz4wRLwQ--Rg1RAjOFqtHSs-o=s0",
+    "bytes": 441371,
+    "type": "image/png"
+  },
+  {
+    "id": "lol",
+    "file": "lol.png",
+    "page": "https://www.leagueoflegends.com/en-us/",
+    "source": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/befd42ad6d2564159a441d08cfc3bf511532eb74-1628x1628.png",
+    "bytes": 432261,
+    "type": "image/png"
+  },
+  {
+    "id": "ragnarok-character",
+    "file": "ragnarok-character.png",
+    "source": "https://roglobal.com/assets/imgs/p1_male_big-93Fp-WmO.png",
+    "page": "https://roglobal.com/",
+    "bytes": 117226
+  },
+  {
+    "id": "pubgm",
+    "file": "pubgm-cover.png",
+    "page": "https://play.google.com/store/apps/details?id=com.tencent.ig&hl=en",
+    "source": "https://play-lh.googleusercontent.com/Se7jR6A5R0Mk9ClaIguf46yi2K3k32JsqKb3gAtrktIh3JwnFfxrQRmG9GLvdMpbxbMrReUOxzDkStxGxNo-5Q=s0",
+    "bytes": 523803
+  }
+]

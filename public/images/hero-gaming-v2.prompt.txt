@@ -1,0 +1,5 @@
+Tool: built-in image_gen (imagegen skill)
+References: official PUBG Mobile cover, VALORANT artwork, and Genshin Impact artwork in public/images/games/.
+Output: hero-gaming-v2.png
+Prompt:
+undefined

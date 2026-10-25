@@ -1,0 +1,4 @@
+Tool: built-in image_gen (imagegen skill)
+Reference: public/exam/home.png (visual style reference only)
+Prompt:
+Use case: ads-marketing. Create a wide 3:1 cinematic illustration for a Thai gaming topup store website hero. Reference image is a website screenshot, use only its hero artwork as visual inspiration, do not generate a website or UI. Beautiful anime young adult female cyberpunk gamer, black hair in messy high ponytail, golden eyes, black and gold headset and tactical hooded jacket, on RIGHT HALF, looking over shoulder. Futuristic ruined city at sunset with flying craft, golden sparks, dramatic black and yellow palette. LEFT HALF dark atmospheric city with clean negative space for text to be added in HTML. Extremely polished detailed anime game key art, luminous golden rim lighting. No letters, no text, no logos, no UI.
