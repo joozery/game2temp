@@ -60,7 +60,7 @@ export function HeroBanner() {
         initial={{ opacity: 0, scale: 0.98 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-        className="relative isolate min-h-[300px] overflow-hidden rounded-3xl bg-ink text-white sm:min-h-[440px] xl:aspect-[2.9] xl:min-h-0"
+        className="relative isolate min-h-[300px] overflow-hidden rounded-3xl bg-section text-foreground sm:min-h-[440px] xl:aspect-[2.9] xl:min-h-0"
       >
         {slides.map((s, i) => (
           <div
@@ -79,9 +79,9 @@ export function HeroBanner() {
             />
           </div>
         ))}
-        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-ink via-ink/75 to-transparent" />
-        <Sparkles count={18} seed={index + 3} className="-z-10" />
-        <div className="pointer-events-none absolute -left-24 -top-24 -z-10 size-72 rounded-full bg-primary/20 blur-3xl" />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-section from-30% via-section/85 via-50% to-transparent" />
+        <Sparkles count={18} seed={index + 3} className="-z-10" colors={["text-primary", "text-coral", "text-mint"]} />
+        <div className="pointer-events-none absolute -left-24 -top-24 -z-10 size-72 rounded-full bg-primary/40 blur-3xl" />
 
         <AnimatePresence mode="wait">
           <motion.div
@@ -108,9 +108,9 @@ export function HeroBanner() {
             <motion.h1 variants={staggerChild} className="mt-4 text-[2rem] font-bold leading-[1.1] sm:mt-5 sm:text-5xl xl:text-6xl">
               {slide.title}
               <br />
-              <span className="text-shimmer">{slide.highlight}</span>
+              <span className="text-coral">{slide.highlight}</span>
             </motion.h1>
-            <motion.p variants={staggerChild} className="mt-3 line-clamp-2 max-w-[16rem] text-[13px] text-white/75 sm:mt-4 sm:max-w-md sm:text-base">
+            <motion.p variants={staggerChild} className="mt-3 line-clamp-2 max-w-[16rem] text-[13px] text-muted-foreground sm:mt-4 sm:max-w-md sm:text-base">
               {slide.text}
             </motion.p>
             <motion.div variants={staggerChild} className="mt-5 flex flex-wrap gap-3 sm:mt-7">
@@ -128,7 +128,7 @@ export function HeroBanner() {
                 href="#how"
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.97 }}
-                className="hidden h-12 items-center rounded-xl border border-white/25 sm:inline-flex bg-white/5 px-6 font-medium backdrop-blur transition-colors hover:bg-white/15"
+                className="hidden h-12 items-center rounded-xl border border-ink/15 sm:inline-flex bg-card/70 px-6 font-medium backdrop-blur transition-colors hover:bg-card"
               >
                 วิธีการเติม
               </motion.a>
@@ -143,7 +143,7 @@ export function HeroBanner() {
                 key={s.title}
                 aria-label={`สไลด์ที่ ${i + 1}`}
                 onClick={() => setIndex(i)}
-                className="relative h-1.5 w-3 overflow-hidden rounded-full bg-white/40 transition-all hover:bg-white/70 data-[active=true]:w-8"
+                className="relative h-1.5 w-3 overflow-hidden rounded-full bg-ink/15 transition-all hover:bg-ink/30 data-[active=true]:w-8"
                 data-active={i === index}
               >
                 {i === index && (
@@ -158,10 +158,10 @@ export function HeroBanner() {
               </button>
             ))}
           </div>
-          <button aria-label="สไลด์ก่อนหน้า" onClick={() => go(-1)} className="hidden size-10 place-items-center rounded-full border border-white/25 bg-black/30 sm:grid backdrop-blur transition hover:bg-white hover:text-ink">
+          <button aria-label="สไลด์ก่อนหน้า" onClick={() => go(-1)} className="hidden size-10 place-items-center rounded-full border border-ink/15 bg-card/70 sm:grid backdrop-blur transition hover:bg-card">
             <ChevronLeft className="size-5" />
           </button>
-          <button aria-label="สไลด์ถัดไป" onClick={() => go(1)} className="hidden size-10 place-items-center rounded-full bg-white text-ink sm:grid transition hover:bg-primary">
+          <button aria-label="สไลด์ถัดไป" onClick={() => go(1)} className="hidden size-10 place-items-center rounded-full bg-primary text-ink sm:grid transition hover:bg-primary-hover">
             <ChevronRight className="size-5" />
           </button>
         </div>

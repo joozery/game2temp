@@ -80,7 +80,7 @@ export function ProductCatalog({ query, onAdd }: { query: string; onAdd: (item: 
                       เริ่มต้น <b>฿{minPrice(game).toLocaleString()}</b>
                     </p>
                   </div>
-                  <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-primary text-ink transition group-hover:bg-ink group-hover:text-primary">
+                  <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-primary text-ink transition group-hover:bg-coral group-hover:text-white">
                     <ArrowRight className="size-4" />
                   </span>
                 </div>
@@ -109,7 +109,7 @@ export function ProductCatalog({ query, onAdd }: { query: string; onAdd: (item: 
                   <Artwork name={a.game} />
                   {a.tag && (
                     <span
-                      className={`absolute left-3 top-3 rounded-md px-2 py-0.5 text-[10px] font-bold text-white ${a.tag === "NEW" ? "bg-sky-500" : "bg-coral"}`}
+                      className={`absolute left-3 top-3 rounded-md px-2 py-0.5 text-[10px] font-bold text-white ${a.tag === "NEW" ? "bg-success" : "bg-coral"}`}
                     >
                       {a.tag}
                     </span>
@@ -123,7 +123,7 @@ export function ProductCatalog({ query, onAdd }: { query: string; onAdd: (item: 
                     <button
                       aria-label={`เพิ่ม ${a.title} ลงตะกร้า`}
                       onClick={() => onAdd({ name: a.title, price: a.price })}
-                      className="grid size-9 place-items-center rounded-xl bg-primary text-ink transition hover:bg-ink hover:text-primary"
+                      className="grid size-9 place-items-center rounded-xl bg-primary text-ink transition hover:bg-coral hover:text-white"
                     >
                       <ShoppingCart className="size-4" />
                     </button>

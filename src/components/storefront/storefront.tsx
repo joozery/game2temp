@@ -65,10 +65,10 @@ export function Storefront() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 12, scale: 0.95 }}
               transition={{ type: "spring", stiffness: 420, damping: 28 }}
-              className="shine flex items-center gap-2.5 rounded-xl bg-ink px-5 py-3.5 text-sm text-white shadow-2xl"
+              className="shine flex items-center gap-2.5 rounded-xl bg-success px-5 py-3.5 text-sm font-medium text-white shadow-2xl shadow-success/30"
             >
               <motion.span initial={{ rotate: -90, scale: 0 }} animate={{ rotate: 0, scale: 1 }} transition={{ delay: 0.1, type: "spring" }}>
-                <CheckCircle2 className="size-5 text-primary" />
+                <CheckCircle2 className="size-5 text-white" />
               </motion.span>
               {toast}
             </motion.div>

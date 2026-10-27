@@ -37,7 +37,7 @@ export function Community() {
                   <Artwork name={n.art} />
                 </div>
                 <div className="p-4">
-                  <span className="text-[11px] font-semibold text-amber-600">{n.tag}</span>
+                  <span className="text-[11px] font-semibold text-coral">{n.tag}</span>
                   <h3 className="mt-1 line-clamp-2 text-sm font-medium leading-snug">{n.title}</h3>
                   <time className="mt-2 block text-xs text-muted-foreground">{n.date}</time>
                 </div>
@@ -48,7 +48,7 @@ export function Community() {
 
         <section id="reviews">
           <SectionHeading title="รีวิวจากลูกค้า" icon={BadgeCheck} />
-          <div className="flex h-[calc(100%-4.25rem)] min-h-56 flex-col rounded-2xl bg-ink p-6 text-white">
+          <div className="flex h-[calc(100%-4.25rem)] min-h-56 flex-col rounded-2xl bg-mint/35 p-6 text-foreground">
             <div className="flex gap-0.5 text-primary">
               {Array.from({ length: 5 }, (_, i) => (
                 <Star key={i} className="size-4 fill-current" />
@@ -61,10 +61,10 @@ export function Community() {
               </span>
               <div>
                 <p className="text-sm font-semibold">{current.name}</p>
-                <p className="text-xs text-white/50">เติม {current.game}</p>
+                <p className="text-xs text-muted-foreground">เติม {current.game}</p>
               </div>
               <div className="ml-auto flex gap-2">
-                <button aria-label="รีวิวก่อนหน้า" onClick={() => step(-1)} className="grid size-9 place-items-center rounded-full border border-white/20 transition hover:bg-white hover:text-ink">
+                <button aria-label="รีวิวก่อนหน้า" onClick={() => step(-1)} className="grid size-9 place-items-center rounded-full border border-ink/15 bg-card/60 transition hover:bg-card">
                   <ChevronLeft className="size-4" />
                 </button>
                 <button aria-label="รีวิวถัดไป" onClick={() => step(1)} className="grid size-9 place-items-center rounded-full bg-primary text-ink transition hover:bg-primary-hover">

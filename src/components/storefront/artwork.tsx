@@ -44,13 +44,13 @@ export function Artwork({ name, className }: { name: string; className?: string 
   }
 
   const art = gameArt[name];
-  if (!art) return <div className={cn("grid size-full place-items-center bg-ink text-primary", className)}><Gamepad2 aria-label="เกม" /></div>;
+  if (!art) return <div className={cn("grid size-full place-items-center bg-section text-ink", className)}><Gamepad2 aria-label="เกม" /></div>;
 
   return (
     <div
       role="img"
       aria-label={art.label}
-      className={cn("relative size-full overflow-hidden bg-ink", className)}
+      className={cn("relative size-full overflow-hidden bg-section", className)}
       style={{ backgroundColor: art.background }}
     >
       <span

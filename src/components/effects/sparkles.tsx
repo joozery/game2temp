@@ -24,7 +24,7 @@ export function Sparkles({
   count = 14,
   seed = 7,
   className,
-  colors = ["text-primary", "text-white", "text-amber-300"],
+  colors = ["text-primary", "text-coral", "text-mint"],
 }: {
   count?: number;
   seed?: number;

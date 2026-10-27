@@ -15,26 +15,36 @@ type NavItem = {
   icon: LucideIcon;
   label: string;
   href: string;
+  /** Palette tile behind the icon. */
+  tone: string;
+};
+
+const tones = {
+  sunshine: "bg-primary text-ink",
+  coral: "bg-coral text-white",
+  mint: "bg-mint text-ink",
+  emerald: "bg-success text-white",
+  pastel: "bg-section text-ink",
 };
 
 const shopLinks: NavItem[] = [
-  { id: "home", icon: Home, label: "หน้าแรก", href: "#home" },
-  { id: "games", icon: Gamepad2, label: "เติมเกม", href: "#games" },
-  { id: "accounts", icon: ShoppingBag, label: "ซื้อไอดีเกม", href: "#accounts" },
-  { id: "digital", icon: Package, label: "สินค้าดิจิทัล", href: "#digital" },
-  { id: "boxes", icon: Dices, label: "กล่องสุ่ม", href: "#promotions" },
-  { id: "promotions", icon: BadgePercent, label: "โปรโมชั่น", href: "#promotions" },
+  { id: "home", icon: Home, label: "หน้าแรก", href: "#home", tone: tones.sunshine },
+  { id: "games", icon: Gamepad2, label: "เติมเกม", href: "#games", tone: tones.coral },
+  { id: "accounts", icon: ShoppingBag, label: "ซื้อไอดีเกม", href: "#accounts", tone: tones.mint },
+  { id: "digital", icon: Package, label: "สินค้าดิจิทัล", href: "#digital", tone: tones.emerald },
+  { id: "boxes", icon: Dices, label: "กล่องสุ่ม", href: "#promotions", tone: tones.pastel },
+  { id: "promotions", icon: BadgePercent, label: "โปรโมชั่น", href: "#promotions", tone: tones.coral },
 ];
 
 const accountLinks: NavItem[] = [
-  { id: "history", icon: History, label: "ประวัติการสั่งซื้อ", href: "#" },
-  { id: "wallet", icon: Wallet, label: "กระเป๋าเงิน", href: "#" },
+  { id: "history", icon: History, label: "ประวัติการสั่งซื้อ", href: "#", tone: tones.mint },
+  { id: "wallet", icon: Wallet, label: "กระเป๋าเงิน", href: "#", tone: tones.emerald },
 ];
 
 const exploreLinks: NavItem[] = [
-  { id: "news", icon: Newspaper, label: "ข่าวสารและบทความ", href: "#news" },
-  { id: "how", icon: BookOpen, label: "วิธีการเติมเกม", href: "#how" },
-  { id: "help", icon: CircleHelp, label: "ศูนย์ช่วยเหลือ", href: "#how" },
+  { id: "news", icon: Newspaper, label: "ข่าวสารและบทความ", href: "#news", tone: tones.sunshine },
+  { id: "how", icon: BookOpen, label: "วิธีการเติมเกม", href: "#how", tone: tones.pastel },
+  { id: "help", icon: CircleHelp, label: "ศูนย์ช่วยเหลือ", href: "#how", tone: tones.mint },
 ];
 
 function useActiveSection() {
@@ -81,11 +91,11 @@ function NavGroup({ title, links, active, onNavigate }: {
 }) {
   return (
     <div>
-      <p className="mb-2 flex items-center gap-3 px-3 text-[10px] font-medium tracking-wide text-slate-500">
-        {title}<span className="h-px flex-1 bg-white/[0.05]" />
+      <p className="mb-2 flex items-center gap-3 px-3 text-[10px] font-medium tracking-wide text-muted-foreground">
+        {title}<span className="h-px flex-1 bg-border" />
       </p>
       <ul className="space-y-1">
-        {links.map(({ id, icon: Icon, label, href }) => {
+        {links.map(({ id, icon: Icon, label, href, tone }) => {
           const selected = active === id;
           return (
             <li key={id}>
@@ -96,14 +106,16 @@ function NavGroup({ title, links, active, onNavigate }: {
                 className={cn(
                   "group relative flex h-[43px] items-center gap-3 rounded-xl border px-3 text-[13px] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary",
                   selected
-                    ? "border-primary/15 bg-primary/[0.09] font-medium text-primary"
-                    : "border-transparent text-slate-400 hover:bg-white/[0.04] hover:text-white"
+                    ? "border-primary/50 bg-primary/25 font-medium text-foreground"
+                    : "border-transparent text-foreground/80 hover:bg-section/60 hover:text-foreground"
                 )}
               >
                 {selected && <span className="absolute -left-px top-3 bottom-3 w-[3px] rounded-full bg-primary shadow-[0_0_10px_#ffd54f88]" />}
-                <Icon strokeWidth={selected ? 2 : 1.7} className={cn("size-[19px] shrink-0 transition-colors", selected ? "text-primary" : "text-slate-500 group-hover:text-slate-200")} />
+                <span className={cn("grid size-7 shrink-0 place-items-center rounded-lg transition-transform group-hover:scale-110", tone, selected && "shadow-sm ring-2 ring-card")}>
+                  <Icon strokeWidth={selected ? 2.2 : 2} className="size-4" />
+                </span>
                 <span className="flex-1">{label}</span>
-                {selected && <ChevronRight className="size-3.5 text-primary/70" />}
+                {selected && <ChevronRight className="size-3.5 text-ink/60" />}
               </a>
             </li>
           );
@@ -121,12 +133,12 @@ export function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
   };
 
   return (
-    <div className="flex h-full min-h-0 flex-col border-r border-white/[0.06] bg-ink text-white">
+    <div className="flex h-full min-h-0 flex-col border-r border-border bg-card text-foreground">
       <div className="shrink-0 px-5 pb-5 pt-6">
         <div className="flex items-center justify-between gap-2">
           <Brand />
           {onNavigate && (
-            <button onClick={onNavigate} aria-label="ปิดเมนู" className="grid size-8 shrink-0 place-items-center rounded-lg text-slate-400 transition hover:bg-white/5 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
+            <button onClick={onNavigate} aria-label="ปิดเมนู" className="grid size-8 shrink-0 place-items-center rounded-lg text-muted-foreground transition hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
               <X className="size-4" />
             </button>
           )}
@@ -139,19 +151,19 @@ export function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
         <NavGroup title="สำรวจเพิ่มเติม" links={exploreLinks} active={active} onNavigate={navigate} />
       </nav>
 
-      <div className="shrink-0 space-y-3 border-t border-white/[0.05] bg-[#0b1220] px-4 pb-4 pt-4">
-        <a href="#games" onClick={onNavigate} className="group relative block overflow-hidden rounded-xl border border-primary/15 bg-gradient-to-br from-primary/[0.08] to-transparent p-3.5 transition hover:border-primary/35 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
+      <div className="shrink-0 space-y-3 border-t border-border bg-background px-4 pb-4 pt-4">
+        <a href="#games" onClick={onNavigate} className="group relative block overflow-hidden rounded-xl border border-primary/40 bg-section p-3.5 transition hover:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
           <div className="relative flex items-center gap-2.5">
-            <div><p className="text-xs font-medium text-white">สิทธิพิเศษสำหรับสมาชิก</p><p className="mt-0.5 text-[10px] text-slate-500">เติมคุ้มกว่า รับส่วนลดทุกวัน</p></div>
+            <div><p className="text-xs font-semibold text-foreground">สิทธิพิเศษสำหรับสมาชิก</p><p className="mt-0.5 text-[10px] text-muted-foreground">เติมคุ้มกว่า รับส่วนลดทุกวัน</p></div>
           </div>
           <span className="relative mt-3 flex items-center justify-between rounded-lg bg-primary px-3 py-2 text-[11px] font-semibold text-ink transition group-hover:bg-primary-hover">สมัครสมาชิกฟรี<ArrowUpRight className="size-3.5" /></span>
         </a>
-        <a href="#reviews" onClick={onNavigate} className="group flex items-center gap-2.5 rounded-lg px-1 py-1.5 text-slate-400 transition hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
-          <span className="grid size-8 place-items-center rounded-lg border border-white/[0.06] bg-white/[0.025]"><Headphones className="size-4" /></span>
-          <div className="flex-1"><p className="text-[11px]">ต้องการความช่วยเหลือ?</p><p className="text-[9px] text-slate-600">ทีมงานพร้อมดูแลคุณ</p></div>
-          <ArrowUpRight className="size-3.5 text-slate-600 group-hover:text-primary" />
+        <a href="#reviews" onClick={onNavigate} className="group flex items-center gap-2.5 rounded-lg px-1 py-1.5 text-muted-foreground transition hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
+          <span className="grid size-8 place-items-center rounded-lg bg-mint/40 text-success"><Headphones className="size-4" /></span>
+          <div className="flex-1"><p className="text-[11px]">ต้องการความช่วยเหลือ?</p><p className="text-[9px] text-muted-foreground">ทีมงานพร้อมดูแลคุณ</p></div>
+          <ArrowUpRight className="size-3.5 text-muted-foreground group-hover:text-foreground" />
         </a>
-        <p className="flex items-center justify-between border-t border-white/[0.05] pt-3 text-[9px] text-slate-600"><span>© 2026 PK-TOPUP</span><span className="flex items-center gap-1"><ShieldCheck className="size-3" /> ปลอดภัย 100%</span></p>
+        <p className="flex items-center justify-between border-t border-border pt-3 text-[9px] text-muted-foreground"><span>© 2026 PK-TOPUP</span><span className="flex items-center gap-1"><ShieldCheck className="size-3" /> ปลอดภัย 100%</span></p>
       </div>
     </div>
   );

@@ -30,7 +30,7 @@ function ChipGroup({
         <ToggleGroupPrimitive.Item
           key={option}
           value={option}
-          className="shrink-0 whitespace-nowrap rounded-full border border-border bg-card px-3.5 py-1.5 text-xs font-medium text-muted-foreground transition hover:border-primary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring data-[state=on]:border-ink data-[state=on]:bg-ink data-[state=on]:text-primary"
+          className="shrink-0 whitespace-nowrap rounded-full border border-border bg-card px-3.5 py-1.5 text-xs font-medium text-muted-foreground transition hover:border-primary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring data-[state=on]:border-primary data-[state=on]:bg-primary data-[state=on]:text-ink"
         >
           {option}
         </ToggleGroupPrimitive.Item>

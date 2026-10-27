@@ -38,7 +38,7 @@ function SheetContent({
 }) {
   return (
     <SheetPrimitive.Portal>
-      <SheetPrimitive.Overlay className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm data-[state=open]:animate-fade-in" />
+      <SheetPrimitive.Overlay className="fixed inset-0 z-50 bg-ink/30 backdrop-blur-sm data-[state=open]:animate-fade-in" />
       <SheetPrimitive.Content
         className={cn(
           "fixed z-50 flex flex-col bg-card shadow-2xl outline-none",

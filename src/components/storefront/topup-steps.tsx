@@ -15,7 +15,7 @@ export function TopupSteps() {
       <ol className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {steps.map(({ icon: Icon, title, text }, index) => (
           <li key={title} className="relative flex items-center gap-4 overflow-hidden rounded-2xl border border-border bg-card p-5">
-            <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-yellow-200 to-primary text-ink">
+            <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-section to-primary text-ink">
               <Icon className="size-6" aria-hidden />
             </span>
             <div className="relative z-10">

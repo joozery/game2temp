@@ -32,7 +32,7 @@ function DigitalProductCard({ product, onAdd }: { product: DigitalProduct; onAdd
         <h3 className="min-h-10 text-sm font-semibold leading-5">{product.name}</h3>
         <div className="mt-3 flex items-end justify-between gap-2 border-t border-border/60 pt-3">
           <div><p className="text-[10px] text-muted-foreground">เริ่มต้น</p><p className="mt-0.5 text-lg font-semibold leading-none tracking-tight"><span className="mr-0.5 text-sm">฿</span>{product.price.toLocaleString("th-TH")}</p></div>
-          <button type="button" aria-label={`เพิ่ม ${product.name} ลงตะกร้า`} onClick={() => onAdd({ name: product.name, price: product.price })} className="grid size-9 shrink-0 place-items-center rounded-xl bg-primary text-ink transition hover:bg-ink hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"><ShoppingCart className="size-4" /></button>
+          <button type="button" aria-label={`เพิ่ม ${product.name} ลงตะกร้า`} onClick={() => onAdd({ name: product.name, price: product.price })} className="grid size-9 shrink-0 place-items-center rounded-xl bg-primary text-ink transition hover:bg-coral hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"><ShoppingCart className="size-4" /></button>
         </div>
       </div>
     </article>

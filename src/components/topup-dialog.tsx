@@ -92,7 +92,7 @@ export function TopupDialog({
               {game.packages.map((pkg) => (
                 <RadioCard key={pkg.id} value={pkg.id}>
                   <div className="flex items-center gap-1.5 font-semibold">
-                    <Gem className="size-4 text-amber-500" />
+                    <Gem className="size-4 text-coral" />
                     {pkg.amount.toLocaleString()}
                   </div>
                   <p className="text-xs text-muted-foreground">{game.currency}</p>

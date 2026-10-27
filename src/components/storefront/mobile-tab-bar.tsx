@@ -51,11 +51,11 @@ function TabLink({ tab, active }: { tab: Tab; active: boolean }) {
       {active && (
         <motion.span
           layoutId="tab-pill"
-          className="absolute top-1 h-8 w-14 rounded-full bg-primary/15"
+          className="absolute top-1 h-8 w-14 rounded-full bg-primary"
           transition={{ type: "spring", stiffness: 500, damping: 35 }}
         />
       )}
-      <Icon className={cn("relative size-[22px] transition-colors", active ? "text-amber-600" : "text-muted-foreground")} strokeWidth={active ? 2.2 : 1.8} />
+      <Icon className={cn("relative size-[22px] transition-colors", active ? "text-ink" : "text-muted-foreground")} strokeWidth={active ? 2.2 : 1.8} />
       <span className={cn("relative", active ? "text-foreground" : "text-muted-foreground")}>{tab.label}</span>
     </a>
   );
@@ -111,7 +111,7 @@ export function MobileTabBar({ onTopUp }: { onTopUp: () => void }) {
       </nav>
 
       <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
-        <SheetContent side="left" hideClose className="w-72 bg-ink">
+        <SheetContent side="left" hideClose className="w-72 bg-card">
           <SheetTitle className="sr-only">เมนู</SheetTitle>
           <SidebarContent onNavigate={() => setMenuOpen(false)} />
         </SheetContent>

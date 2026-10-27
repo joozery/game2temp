@@ -45,7 +45,7 @@ function SearchField({
         className
       )}
     >
-      <Search className="size-4 shrink-0 text-muted-foreground group-focus-within:text-amber-500" />
+      <Search className="size-4 shrink-0 text-muted-foreground group-focus-within:text-coral" />
       <input
         ref={inputRef}
         aria-label="ค้นหาเกมหรือสินค้า"
@@ -118,7 +118,7 @@ export function StoreHeader({
 
         <div className="ml-auto flex items-center gap-1 sm:gap-1.5">
           <div className="mr-1.5 hidden h-10 items-center gap-2.5 rounded-xl border border-primary/40 bg-primary/10 pl-3 pr-1 sm:flex">
-            <Wallet className="size-4 text-amber-600" />
+            <Wallet className="size-4 text-success" />
             <span className="leading-none">
               <span className="block text-[10px] text-muted-foreground">ยอดเงินคงเหลือ</span>
               <span className="mt-0.5 block text-[13px] font-semibold tabular-nums text-foreground">฿1,250.00</span>
@@ -197,7 +197,7 @@ export function StoreHeader({
 
           <DropdownMenu>
             <DropdownMenuTrigger className="flex items-center gap-2.5 rounded-xl p-1 pr-1.5 transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring data-[state=open]:bg-muted md:pr-2.5">
-              <span className="relative grid size-8 place-items-center rounded-lg bg-gradient-to-br from-amber-300 to-amber-600 text-sm font-bold text-ink">
+              <span className="relative grid size-8 place-items-center rounded-lg bg-gradient-to-br from-primary to-primary-hover text-sm font-bold text-ink">
                 N
                 <span className="absolute -bottom-0.5 -right-0.5 size-2.5 rounded-full bg-success ring-2 ring-white" />
               </span>
@@ -207,9 +207,9 @@ export function StoreHeader({
               <ChevronDown className="hidden size-3.5 text-muted-foreground md:block" />
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-64 p-1.5">
-              <div className="mb-1 rounded-xl bg-ink p-3 text-white">
+              <div className="mb-1 rounded-xl bg-section p-3 text-foreground">
                 <div className="flex items-center gap-2.5">
-                  <span className="grid size-9 place-items-center rounded-lg bg-gradient-to-br from-amber-300 to-amber-600 font-bold text-ink">N</span>
+                  <span className="grid size-9 place-items-center rounded-lg bg-gradient-to-br from-primary to-primary-hover font-bold text-ink">N</span>
                   <p className="min-w-0 truncate text-sm font-semibold">Nattapong S.</p>
                 </div>
               </div>
@@ -228,11 +228,11 @@ export function StoreHeader({
         <SearchField query={query} onSearch={onSearch} className="h-11 flex-1 rounded-2xl" />
         <button
           aria-label="ยอดเงิน ฿1,250.00 แตะเพื่อเติมเงิน"
-          className="shine flex h-11 shrink-0 items-center gap-1.5 rounded-2xl bg-ink px-3 text-[13px] font-semibold text-primary transition-transform active:scale-95 sm:hidden"
+          className="shine flex h-11 shrink-0 items-center gap-1.5 rounded-2xl bg-primary px-3 text-[13px] font-semibold text-ink transition-transform active:scale-95 sm:hidden"
         >
           <Wallet className="size-4" />
           ฿1,250
-          <span className="grid size-5 place-items-center rounded-md bg-primary text-ink">
+          <span className="grid size-5 place-items-center rounded-md bg-coral text-white">
             <Plus className="size-3" />
           </span>
         </button>

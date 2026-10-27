@@ -47,7 +47,7 @@ export function PopularGames() {
           <Gamepad2 className="size-6 shrink-0 text-ink" aria-hidden />
           หมวดเกมยอดนิยม
         </h2>
-        <a href="#games" className="flex shrink-0 items-center gap-2 text-xs font-medium transition hover:text-amber-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:text-sm">
+        <a href="#games" className="flex shrink-0 items-center gap-2 text-xs font-medium transition hover:text-coral focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:text-sm">
           เกมทั้งหมด <ArrowRight className="size-3.5" aria-hidden />
         </a>
       </div>
@@ -65,7 +65,7 @@ export function PopularGames() {
             return (
               <li key={id} aria-posinset={index + 1} aria-setsize={popularIds.length} className="-mr-6 w-36 shrink-0 snap-start last:mr-0 sm:w-[calc((100%+72px)/4)] lg:w-[calc((100%+96px)/5)] xl:w-[calc((100%+120px)/6)]">
                 <a href="#games" aria-label={`เติมเกม ${game.name}`} className="group block rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
-                  <div className="relative h-32 overflow-hidden rounded-md bg-ink transition duration-200 group-hover:brightness-110 sm:h-36" style={{ clipPath: "polygon(22% 0, 100% 0, 78% 100%, 0 100%)" }}>
+                  <div className="relative h-32 overflow-hidden rounded-md bg-section transition duration-200 group-hover:brightness-110 sm:h-36" style={{ clipPath: "polygon(22% 0, 100% 0, 78% 100%, 0 100%)" }}>
                     <Artwork name={id} />
                     <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black via-black/10 to-transparent" />
                     <span className="absolute inset-x-3 bottom-2.5 text-center text-[11px] font-semibold leading-tight text-white drop-shadow-md sm:text-xs">

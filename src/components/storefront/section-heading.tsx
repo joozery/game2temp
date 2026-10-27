@@ -18,7 +18,7 @@ export function SectionHeading({
     <div className="mb-5 flex flex-wrap items-center gap-x-6 gap-y-3">
       <div className="flex items-center gap-3">
         {Icon && (
-          <span className="grid size-10 place-items-center rounded-xl bg-ink text-primary">
+          <span className="grid size-10 place-items-center rounded-xl bg-primary text-ink">
             <Icon className="size-5" />
           </span>
         )}
