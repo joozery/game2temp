@@ -11,7 +11,7 @@ type Tab = { id: string; label: string; icon: LucideIcon; href: string; sections
 
 const leftTabs: Tab[] = [
   { id: "home", label: "หน้าแรก", icon: Home, href: "#home", sections: ["home"] },
-  { id: "games", label: "เติมเกม", icon: Gamepad2, href: "#games", sections: ["games", "accounts", "digital"] },
+  { id: "games", label: "เติมเกม", icon: Gamepad2, href: "#games", sections: ["games", "accounts", "digital", "premium"] },
 ];
 const rightTabs: Tab[] = [
   { id: "promo", label: "โปรโมชั่น", icon: BadgePercent, href: "#promotions", sections: ["promotions"] },

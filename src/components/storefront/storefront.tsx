@@ -11,6 +11,7 @@ import { StoreHeader } from "./header";
 import { Footer } from "./footer";
 import { HeroBanner } from "./hero-banner";
 import { PopularGames, ProductCatalog, type CartItem } from "./product-catalog";
+import { PremiumApps } from "./premium-apps";
 import { Promotions } from "./promotions";
 import { Sidebar } from "./sidebar";
 import { MobileQuickActions } from "./mobile-quick-actions";
@@ -50,6 +51,7 @@ export function Storefront() {
           <PopularGames />
           <Promotions />
           <ProductCatalog query={query} onAdd={add} />
+          <PremiumApps query={query} onAdd={add} />
           <Community />
         </main>
         <Footer />

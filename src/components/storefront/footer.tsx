@@ -15,6 +15,7 @@ const columns = [
       { label: "เติมเกม", href: "#games" },
       { label: "ซื้อไอดีเกม", href: "#accounts" },
       { label: "สินค้าดิจิทัล", href: "#digital" },
+      { label: "แอปพรีเมียม", href: "#premium" },
       { label: "โปรโมชั่น", href: "#promotions" },
     ],
   },

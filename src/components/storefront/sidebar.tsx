@@ -5,7 +5,7 @@ import Image from "next/image";
 import {
   ArrowUpRight, BadgePercent, BookOpen, ChevronRight, CircleHelp,
   Dices, Gamepad2, Headphones, History, Home, Newspaper,
-  Package, ShieldCheck, ShoppingBag, Wallet, X,
+  Package, ShieldCheck, ShoppingBag, Sparkles, Wallet, X,
   type LucideIcon,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -32,6 +32,7 @@ const shopLinks: NavItem[] = [
   { id: "games", icon: Gamepad2, label: "เติมเกม", href: "#games", tone: tones.coral },
   { id: "accounts", icon: ShoppingBag, label: "ซื้อไอดีเกม", href: "#accounts", tone: tones.mint },
   { id: "digital", icon: Package, label: "สินค้าดิจิทัล", href: "#digital", tone: tones.emerald },
+  { id: "premium", icon: Sparkles, label: "แอปพรีเมียม", href: "#premium", tone: tones.coral },
   { id: "boxes", icon: Dices, label: "กล่องสุ่ม", href: "#promotions", tone: tones.pastel },
   { id: "promotions", icon: BadgePercent, label: "โปรโมชั่น", href: "#promotions", tone: tones.coral },
 ];
@@ -51,7 +52,7 @@ function useActiveSection() {
   const [active, setActive] = useState("home");
 
   useEffect(() => {
-    const sections = ["home", "games", "accounts", "digital", "promotions", "news", "how", "reviews"]
+    const sections = ["home", "games", "accounts", "digital", "premium", "promotions", "news", "how", "reviews"]
       .map((id) => document.getElementById(id))
       .filter((element): element is HTMLElement => element !== null);
     const observer = new IntersectionObserver(() => {

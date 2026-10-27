@@ -1,0 +1,41 @@
+{
+  "tool": "image_gen (built-in)",
+  "assets": [
+    {
+      "file": "netflix.webp",
+      "prompt": "Use case: product-mockup. Asset type: landscape premium digital subscription product cover for a Thai gaming storefront. Create a polished 3D studio illustration for Netflix Premium: a cinematic film clapperboard and floating cinema screens. Color palette: red and black. Landscape 3:2 composition, focal object centered with generous margins so it survives cropping to a wide card. Refined soft reflections, subtle gradients, high-end friendly commercial style, clean uncluttered backdrop. Text (verbatim): \"Netflix Premium\", small crisp typography near lower center. No pricing, no extra text, no watermark."
+    },
+    {
+      "file": "youtube.webp",
+      "prompt": "Use case: product-mockup. Asset type: landscape premium digital subscription product cover for a Thai gaming storefront. Create a polished 3D studio illustration for YouTube Premium: a glossy red play button with video player panels. Color palette: red and white. Landscape 3:2 composition, focal object centered with generous margins so it survives cropping to a wide card. Refined soft reflections, subtle gradients, high-end friendly commercial style, clean uncluttered backdrop. Text (verbatim): \"YouTube Premium\", small crisp typography near lower center. No pricing, no extra text, no watermark."
+    },
+    {
+      "file": "disney.webp",
+      "prompt": "Use case: product-mockup. Asset type: landscape premium digital subscription product cover for a Thai gaming storefront. Create a polished 3D studio illustration for Disney+ Hotstar: a luminous castle silhouette under a starry orbital arc. Color palette: midnight blue and cyan. Landscape 3:2 composition, focal object centered with generous margins so it survives cropping to a wide card. Refined soft reflections, subtle gradients, high-end friendly commercial style, clean uncluttered backdrop. Text (verbatim): \"Disney+ Hotstar\", small crisp typography near lower center. No pricing, no extra text, no watermark."
+    },
+    {
+      "file": "prime.webp",
+      "prompt": "Use case: product-mockup. Asset type: landscape premium digital subscription product cover for a Thai gaming storefront. Create a polished 3D studio illustration for Prime Video: a glossy play button with curved smile arrow and cinematic screens. Color palette: deep blue and sky blue. Landscape 3:2 composition, focal object centered with generous margins so it survives cropping to a wide card. Refined soft reflections, subtle gradients, high-end friendly commercial style, clean uncluttered backdrop. Text (verbatim): \"Prime Video\", small crisp typography near lower center. No pricing, no extra text, no watermark."
+    },
+    {
+      "file": "spotify.webp",
+      "prompt": "Use case: product-mockup. Asset type: landscape premium digital subscription product cover for a Thai gaming storefront. Create a polished 3D studio illustration for Spotify Premium: premium headphones with floating music waves. Color palette: emerald green and black. Landscape 3:2 composition, focal object centered with generous margins so it survives cropping to a wide card. Refined soft reflections, subtle gradients, high-end friendly commercial style, clean uncluttered backdrop. Text (verbatim): \"Spotify Premium\", small crisp typography near lower center. No pricing, no extra text, no watermark."
+    },
+    {
+      "file": "apple-music.webp",
+      "prompt": "Use case: product-mockup. Asset type: landscape premium digital subscription product cover for a Thai gaming storefront. Create a polished 3D studio illustration for Apple Music: a glossy musical note with floating sound waves. Color palette: coral pink and white. Landscape 3:2 composition, focal object centered with generous margins so it survives cropping to a wide card. Refined soft reflections, subtle gradients, high-end friendly commercial style, clean uncluttered backdrop. Text (verbatim): \"Apple Music\", small crisp typography near lower center. No pricing, no extra text, no watermark."
+    },
+    {
+      "file": "chatgpt.webp",
+      "prompt": "Use case: product-mockup. Asset type: landscape premium digital subscription product cover for a Thai gaming storefront. Create a polished 3D studio illustration for ChatGPT Plus: a luminous interwoven geometric AI knot with floating conversation cards. Color palette: mint green and dark teal. Landscape 3:2 composition, focal object centered with generous margins so it survives cropping to a wide card. Refined soft reflections, subtle gradients, high-end friendly commercial style, clean uncluttered backdrop. Text (verbatim): \"ChatGPT Plus\", small crisp typography near lower center. No pricing, no extra text, no watermark."
+    },
+    {
+      "file": "canva.webp",
+      "prompt": "Use case: product-mockup. Asset type: landscape premium digital subscription product cover for a Thai gaming storefront. Create a polished 3D studio illustration for Canva Pro: floating colorful design canvases and a glossy creative pen. Color palette: turquoise and violet. Landscape 3:2 composition, focal object centered with generous margins so it survives cropping to a wide card. Refined soft reflections, subtle gradients, high-end friendly commercial style, clean uncluttered backdrop. Text (verbatim): \"Canva Pro\", small crisp typography near lower center. No pricing, no extra text, no watermark."
+    },
+    {
+      "file": "capcut.webp",
+      "prompt": "Use case: product-mockup. Asset type: landscape premium digital subscription product cover for a Thai gaming storefront. Create a polished 3D studio illustration for CapCut Pro: a glossy crossed ribbon editing symbol with video timeline panels. Color palette: black white and violet. Landscape 3:2 composition, focal object centered with generous margins so it survives cropping to a wide card. Refined soft reflections, subtle gradients, high-end friendly commercial style, clean uncluttered backdrop. Text (verbatim): \"CapCut Pro\", small crisp typography near lower center. No pricing, no extra text, no watermark."
+    }
+  ]
+}

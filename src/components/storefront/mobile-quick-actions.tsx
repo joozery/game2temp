@@ -1,14 +1,15 @@
 "use client";
 
 import { motion } from "motion/react";
-import { BookOpen, Dices, Gamepad2, Package, ShoppingBag, type LucideIcon } from "lucide-react";
+import { BookOpen, Dices, Gamepad2, Package, ShoppingBag, Sparkles, type LucideIcon } from "lucide-react";
 import { staggerChild, staggerParent } from "@/components/effects/motion";
 
 const actions: { label: string; href: string; icon: LucideIcon; tile: string; badge?: string }[] = [
   { label: "เติมเกม", href: "#games", icon: Gamepad2, tile: "from-primary to-primary-hover text-ink", badge: "HOT" },
   { label: "ไอดีเกม", href: "#accounts", icon: ShoppingBag, tile: "from-coral/80 to-coral text-white" },
   { label: "บัตรเติมเงิน", href: "#digital", icon: Package, tile: "from-mint to-success text-white" },
-  { label: "กล่องสุ่ม", href: "#promotions", icon: Dices, tile: "from-mint/70 to-mint text-ink", badge: "NEW" },
+  { label: "แอปพรีเมียม", href: "#premium", icon: Sparkles, tile: "from-coral to-primary text-white", badge: "NEW" },
+  { label: "กล่องสุ่ม", href: "#promotions", icon: Dices, tile: "from-mint/70 to-mint text-ink" },
   { label: "วิธีเติม", href: "#how", icon: BookOpen, tile: "from-section to-primary text-ink" },
 ];
 
@@ -20,7 +21,7 @@ export function MobileQuickActions() {
       variants={staggerParent}
       initial="hidden"
       animate="show"
-      className="-mt-4 grid grid-cols-5 gap-1 rounded-3xl border border-border bg-card px-2 py-4 shadow-sm lg:hidden"
+      className="-mt-4 grid grid-cols-3 gap-x-1 gap-y-4 rounded-3xl sm:grid-cols-6 border border-border bg-card px-2 py-4 shadow-sm lg:hidden"
     >
       {actions.map(({ label, href, icon: Icon, tile, badge }) => (
         <motion.a
