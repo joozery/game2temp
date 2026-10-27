@@ -69,7 +69,7 @@ export function ProductCatalog({ query, onAdd }: { query: string; onAdd: (item: 
                 <div className="relative aspect-[16/10] overflow-hidden">
                   <Artwork name={game.id} />
                   {game.hot && (
-                    <span className="absolute left-3 top-3 rounded-md bg-rose-500 px-2 py-0.5 text-[10px] font-bold text-white">HOT</span>
+                    <span className="absolute left-3 top-3 rounded-md bg-coral px-2 py-0.5 text-[10px] font-bold text-white">HOT</span>
                   )}
                 </div>
                 <div className="flex items-end justify-between gap-2 p-4">
@@ -109,7 +109,7 @@ export function ProductCatalog({ query, onAdd }: { query: string; onAdd: (item: 
                   <Artwork name={a.game} />
                   {a.tag && (
                     <span
-                      className={`absolute left-3 top-3 rounded-md px-2 py-0.5 text-[10px] font-bold text-white ${a.tag === "NEW" ? "bg-sky-500" : "bg-rose-500"}`}
+                      className={`absolute left-3 top-3 rounded-md px-2 py-0.5 text-[10px] font-bold text-white ${a.tag === "NEW" ? "bg-sky-500" : "bg-coral"}`}
                     >
                       {a.tag}
                     </span>

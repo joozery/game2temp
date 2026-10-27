@@ -118,7 +118,7 @@ export function HeroBanner() {
                 href={slide.cta.href}
                 whileHover={{ y: -2, scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
-                className="shine inline-flex h-11 items-center gap-2 rounded-xl bg-primary px-5 sm:h-12 sm:px-6 font-semibold text-ink shadow-lg shadow-primary/30 transition-colors hover:bg-yellow-300"
+                className="shine inline-flex h-11 items-center gap-2 rounded-xl bg-primary px-5 sm:h-12 sm:px-6 font-semibold text-ink shadow-lg shadow-primary/30 transition-colors hover:bg-primary-hover"
               >
                 <span className="relative z-[2] flex items-center gap-2">
                   {slide.cta.label} <ArrowRight className="size-4" />
@@ -180,7 +180,7 @@ export function HeroBanner() {
             whileHover={{ y: -4 }}
             className="group flex items-center gap-3 rounded-2xl border border-border bg-card p-4 transition-shadow hover:shadow-lg hover:shadow-primary/10"
           >
-            <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-primary/15 text-amber-600 transition-transform duration-300 group-hover:rotate-[-8deg] group-hover:scale-110">
+            <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-mint/30 text-success transition-transform duration-300 group-hover:rotate-[-8deg] group-hover:scale-110">
               <Icon className="size-5" />
             </span>
             <div className="min-w-0">

@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import {
-  Bell, ChevronDown, Crown, History, LogOut, Plus, Search,
+  Bell, ChevronDown, History, LogOut, Plus, Search,
   Settings, ShoppingCart, User, Wallet, X,
 } from "lucide-react";
 import {
@@ -123,7 +123,7 @@ export function StoreHeader({
               <span className="block text-[10px] text-muted-foreground">ยอดเงินคงเหลือ</span>
               <span className="mt-0.5 block text-[13px] font-semibold tabular-nums text-foreground">฿1,250.00</span>
             </span>
-            <button className="shine ml-1 flex h-8 items-center gap-1 rounded-lg bg-primary px-2.5 text-[12px] font-semibold text-ink transition-colors hover:bg-yellow-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-white">
+            <button className="shine ml-1 flex h-8 items-center gap-1 rounded-lg bg-primary px-2.5 text-[12px] font-semibold text-ink transition-colors hover:bg-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-white">
               <Plus className="size-3.5" /> เติมเงิน
             </button>
           </div>
@@ -133,8 +133,8 @@ export function StoreHeader({
               <Bell className="size-[19px]" strokeWidth={1.8} />
               {unread > 0 && (
                 <span className="absolute right-2 top-2 flex size-2">
-                  <span className="absolute inline-flex size-full animate-ping rounded-full bg-rose-400 opacity-75" />
-                  <span className="relative inline-flex size-2 rounded-full bg-rose-500 ring-2 ring-white" />
+                  <span className="absolute inline-flex size-full animate-ping rounded-full bg-coral opacity-75" />
+                  <span className="relative inline-flex size-2 rounded-full bg-coral ring-2 ring-white" />
                 </span>
               )}
             </PopoverTrigger>
@@ -142,7 +142,7 @@ export function StoreHeader({
               <div className="flex items-center justify-between border-b border-border px-4 py-3">
                 <p className="text-sm font-semibold">
                   การแจ้งเตือน
-                  {unread > 0 && <span className="ml-2 rounded-md bg-rose-500/10 px-1.5 py-0.5 text-[10px] text-rose-500">{unread} ใหม่</span>}
+                  {unread > 0 && <span className="ml-2 rounded-md bg-coral/10 px-1.5 py-0.5 text-[10px] text-coral">{unread} ใหม่</span>}
                 </p>
                 <button
                   disabled={!unread}
@@ -185,7 +185,7 @@ export function StoreHeader({
                   animate={{ scale: 1, y: 0 }}
                   exit={{ scale: 0 }}
                   transition={{ type: "spring", stiffness: 600, damping: 15 }}
-                  className="absolute right-0.5 top-0.5 grid h-4 min-w-4 place-items-center rounded-full bg-primary px-1 text-[10px] font-bold text-ink shadow-[0_0_10px_#ffc800aa]"
+                  className="absolute right-0.5 top-0.5 grid h-4 min-w-4 place-items-center rounded-full bg-primary px-1 text-[10px] font-bold text-ink shadow-[0_0_10px_#ffd54faa]"
                 >
                   {cartCount}
                 </motion.span>
@@ -199,33 +199,18 @@ export function StoreHeader({
             <DropdownMenuTrigger className="flex items-center gap-2.5 rounded-xl p-1 pr-1.5 transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring data-[state=open]:bg-muted md:pr-2.5">
               <span className="relative grid size-8 place-items-center rounded-lg bg-gradient-to-br from-amber-300 to-amber-600 text-sm font-bold text-ink">
                 N
-                <span className="absolute -bottom-0.5 -right-0.5 size-2.5 rounded-full bg-emerald-400 ring-2 ring-white" />
+                <span className="absolute -bottom-0.5 -right-0.5 size-2.5 rounded-full bg-success ring-2 ring-white" />
               </span>
               <span className="hidden text-left leading-tight md:block">
                 <span className="block text-[13px] font-medium">Nattapong</span>
-                <span className="flex items-center gap-1 text-[10px] text-amber-600">
-                  <Crown className="size-3" /> Gold Member
-                </span>
               </span>
               <ChevronDown className="hidden size-3.5 text-muted-foreground md:block" />
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-64 p-1.5">
-              <div className="mb-1 rounded-xl bg-[#11151c] p-3 text-white">
+              <div className="mb-1 rounded-xl bg-ink p-3 text-white">
                 <div className="flex items-center gap-2.5">
                   <span className="grid size-9 place-items-center rounded-lg bg-gradient-to-br from-amber-300 to-amber-600 font-bold text-ink">N</span>
-                  <div className="min-w-0">
-                    <p className="truncate text-sm font-semibold">Nattapong S.</p>
-                    <p className="flex items-center gap-1 text-[11px] text-primary"><Crown className="size-3" /> Gold Member</p>
-                  </div>
-                </div>
-                <div className="mt-3">
-                  <div className="flex justify-between text-[10px] text-slate-400">
-                    <span>1,250 แต้ม</span>
-                    <span>อีก 750 แต้มสู่ Platinum</span>
-                  </div>
-                  <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-white/10">
-                    <div className="h-full w-[62%] rounded-full bg-primary" />
-                  </div>
+                  <p className="min-w-0 truncate text-sm font-semibold">Nattapong S.</p>
                 </div>
               </div>
               <DropdownMenuItem className="sm:hidden"><Wallet /> ยอดเงิน ฿1,250.00</DropdownMenuItem>
@@ -233,7 +218,7 @@ export function StoreHeader({
               <DropdownMenuItem><History /> ประวัติการสั่งซื้อ</DropdownMenuItem>
               <DropdownMenuItem><Settings /> ตั้งค่าบัญชี</DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem className="text-rose-500 [&_svg]:!text-rose-500"><LogOut /> ออกจากระบบ</DropdownMenuItem>
+              <DropdownMenuItem className="text-coral [&_svg]:!text-coral"><LogOut /> ออกจากระบบ</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>

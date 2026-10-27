@@ -43,7 +43,7 @@ export function TopupDialog({
       <DialogContent>
         {done ? (
           <div className="py-6 text-center">
-            <CheckCircle2 className="mx-auto size-14 text-emerald-400" />
+            <CheckCircle2 className="mx-auto size-14 text-success" />
             <DialogTitle className="mt-4 text-xl">บันทึกตัวอย่างคำสั่งซื้อแล้ว</DialogTitle>
             <DialogDescription className="mt-2">
               {selected.amount.toLocaleString()} {game.currency} สำหรับ {game.name}
@@ -97,7 +97,7 @@ export function TopupDialog({
                   </div>
                   <p className="text-xs text-muted-foreground">{game.currency}</p>
                   {pkg.bonus && (
-                    <span className="absolute right-2 top-2 rounded-md bg-emerald-500/15 px-1.5 text-[10px] font-semibold text-emerald-400">
+                    <span className="absolute right-2 top-2 rounded-md bg-success/15 px-1.5 text-[10px] font-semibold text-success">
                       +{pkg.bonus}
                     </span>
                   )}

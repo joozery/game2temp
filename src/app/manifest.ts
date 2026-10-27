@@ -7,8 +7,8 @@ export default function manifest(): MetadataRoute.Manifest {
     description: "เติมเกม ซื้อไอดีเกม และสินค้าดิจิทัล ครบ จบ ในที่เดียว",
     start_url: "/",
     display: "standalone",
-    background_color: "#f4f5f8",
-    theme_color: "#ffffff",
+    background_color: "#fffdf5",
+    theme_color: "#fffdf5",
     icons: [{ src: "/favicon.ico", sizes: "any", type: "image/x-icon" }],
   };
 }

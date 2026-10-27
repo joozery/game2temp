@@ -3,7 +3,7 @@ import { Artwork } from "./artwork";
 import { SectionHeading } from "./section-heading";
 
 const ctaClass =
-  "inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-ink transition group-hover:bg-yellow-300";
+  "inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-ink transition group-hover:bg-primary-hover";
 
 export function Promotions() {
   return (

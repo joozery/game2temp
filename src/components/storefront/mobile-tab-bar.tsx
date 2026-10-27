@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
-import { BadgePercent, Gamepad2, Home, LayoutGrid, Wallet, type LucideIcon } from "lucide-react";
+import { BadgePercent, Gamepad2, Home, LayoutGrid, Plus, Wallet, type LucideIcon } from "lucide-react";
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 import { SidebarContent } from "./sidebar";
@@ -80,10 +80,19 @@ export function MobileTabBar({ onTopUp }: { onTopUp: () => void }) {
             <motion.button
               onClick={onTopUp}
               whileTap={{ scale: 0.9 }}
-              aria-label="เติมเงิน"
-              className="shine glow-pulse -mt-6 mb-1 grid size-14 place-items-center rounded-2xl bg-gradient-to-br from-yellow-300 to-primary text-ink shadow-lg shadow-primary/40 ring-4 ring-white"
+              className="-mt-9 flex flex-col items-center gap-1 pb-1.5 text-[11px] font-semibold text-foreground"
             >
-              <Wallet className="relative z-[2] size-6" />
+              <span className="relative grid size-[74px] place-items-center">
+                {/* Rotating palette halo behind the button. */}
+                <span aria-hidden className="absolute inset-0 animate-spin-slow rounded-full bg-[conic-gradient(from_0deg,var(--primary),var(--coral),var(--mint),var(--primary))] opacity-90 blur-[1px]" />
+                <span className="shine glow-pulse relative grid size-[66px] place-items-center rounded-full bg-gradient-to-br from-primary to-[#ffb300] text-ink shadow-xl shadow-primary/50 ring-4 ring-background">
+                  <Wallet className="relative z-[2] size-7" strokeWidth={2.2} />
+                </span>
+                <span aria-hidden className="absolute right-0.5 top-0.5 z-[3] grid size-5 place-items-center rounded-full bg-coral text-white ring-2 ring-background">
+                  <Plus className="size-3" strokeWidth={3} />
+                </span>
+              </span>
+              เติมเงิน
             </motion.button>
           </div>
 
@@ -102,7 +111,7 @@ export function MobileTabBar({ onTopUp }: { onTopUp: () => void }) {
       </nav>
 
       <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
-        <SheetContent side="left" hideClose className="w-72 bg-[#11151c]">
+        <SheetContent side="left" hideClose className="w-72 bg-ink">
           <SheetTitle className="sr-only">เมนู</SheetTitle>
           <SidebarContent onNavigate={() => setMenuOpen(false)} />
         </SheetContent>

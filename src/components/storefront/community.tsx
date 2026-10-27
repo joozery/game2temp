@@ -67,7 +67,7 @@ export function Community() {
                 <button aria-label="รีวิวก่อนหน้า" onClick={() => step(-1)} className="grid size-9 place-items-center rounded-full border border-white/20 transition hover:bg-white hover:text-ink">
                   <ChevronLeft className="size-4" />
                 </button>
-                <button aria-label="รีวิวถัดไป" onClick={() => step(1)} className="grid size-9 place-items-center rounded-full bg-primary text-ink transition hover:bg-yellow-300">
+                <button aria-label="รีวิวถัดไป" onClick={() => step(1)} className="grid size-9 place-items-center rounded-full bg-primary text-ink transition hover:bg-primary-hover">
                   <ChevronRight className="size-4" />
                 </button>
               </div>

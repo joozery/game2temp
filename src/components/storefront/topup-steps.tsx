@@ -10,7 +10,7 @@ const steps = [
 
 export function TopupSteps() {
   return (
-    <section id="how">
+    <section id="how" className="rounded-3xl bg-section p-5 sm:p-7">
       <SectionHeading title="วิธีการเติมเกม ง่ายๆ ใน 4 ขั้นตอน" icon={Gift} />
       <ol className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {steps.map(({ icon: Icon, title, text }, index) => (
@@ -22,7 +22,7 @@ export function TopupSteps() {
               <h3 className="font-semibold">{title}</h3>
               <p className="text-xs text-muted-foreground">{text}</p>
             </div>
-            <b aria-hidden className="absolute -right-1 -top-3 text-6xl font-black italic text-muted">{index + 1}</b>
+            <b aria-hidden className="absolute -right-1 -top-3 text-6xl font-black italic text-mint/40">{index + 1}</b>
           </li>
         ))}
       </ol>

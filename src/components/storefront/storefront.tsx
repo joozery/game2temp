@@ -8,6 +8,7 @@ import { Sheet, SheetContent, SheetDescription, SheetTitle } from "@/components/
 import { MotionProvider, useSectionReveal } from "@/components/effects/motion";
 import { Community } from "./community";
 import { StoreHeader } from "./header";
+import { Footer } from "./footer";
 import { HeroBanner } from "./hero-banner";
 import { PopularGames, ProductCatalog, type CartItem } from "./product-catalog";
 import { Promotions } from "./promotions";
@@ -43,7 +44,7 @@ export function Storefront() {
       <Sidebar />
       <div className="lg:pl-66">
         <StoreHeader query={query} onSearch={setQuery} cartCount={cart.length} onCart={() => setShowCart(true)} />
-        <main className="mx-auto max-w-[1480px] space-y-8 px-4 pb-32 pt-4 sm:px-6 sm:pt-6 lg:space-y-12 lg:px-8 lg:pb-16">
+        <main className="mx-auto max-w-[1480px] space-y-8 px-4 pb-10 pt-4 sm:px-6 sm:pt-6 lg:space-y-12 lg:px-8 lg:pb-12">
           <HeroBanner />
           <MobileQuickActions />
           <PopularGames />
@@ -51,6 +52,7 @@ export function Storefront() {
           <ProductCatalog query={query} onAdd={add} />
           <Community />
         </main>
+        <Footer />
       </div>
 
       <div className="pointer-events-none fixed inset-x-0 bottom-[calc(6rem+env(safe-area-inset-bottom))] z-[60] flex justify-center px-4 lg:bottom-6">
@@ -92,7 +94,7 @@ export function Storefront() {
                   <button
                     aria-label={`ลบ ${item.name}`}
                     onClick={() => setCart((c) => c.filter((_, n) => n !== i))}
-                    className="grid size-9 place-items-center rounded-lg text-muted-foreground transition hover:bg-rose-50 hover:text-rose-500"
+                    className="grid size-9 place-items-center rounded-lg text-muted-foreground transition hover:bg-coral/10 hover:text-coral"
                   >
                     <Trash2 className="size-4" />
                   </button>

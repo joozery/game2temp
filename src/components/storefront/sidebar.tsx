@@ -100,7 +100,7 @@ function NavGroup({ title, links, active, onNavigate }: {
                     : "border-transparent text-slate-400 hover:bg-white/[0.04] hover:text-white"
                 )}
               >
-                {selected && <span className="absolute -left-px top-3 bottom-3 w-[3px] rounded-full bg-primary shadow-[0_0_10px_#ffc80055]" />}
+                {selected && <span className="absolute -left-px top-3 bottom-3 w-[3px] rounded-full bg-primary shadow-[0_0_10px_#ffd54f88]" />}
                 <Icon strokeWidth={selected ? 2 : 1.7} className={cn("size-[19px] shrink-0 transition-colors", selected ? "text-primary" : "text-slate-500 group-hover:text-slate-200")} />
                 <span className="flex-1">{label}</span>
                 {selected && <ChevronRight className="size-3.5 text-primary/70" />}
@@ -121,7 +121,7 @@ export function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
   };
 
   return (
-    <div className="flex h-full min-h-0 flex-col border-r border-white/[0.06] bg-[#11151c] text-white">
+    <div className="flex h-full min-h-0 flex-col border-r border-white/[0.06] bg-ink text-white">
       <div className="shrink-0 px-5 pb-5 pt-6">
         <div className="flex items-center justify-between gap-2">
           <Brand />
@@ -139,12 +139,12 @@ export function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
         <NavGroup title="สำรวจเพิ่มเติม" links={exploreLinks} active={active} onNavigate={navigate} />
       </nav>
 
-      <div className="shrink-0 space-y-3 border-t border-white/[0.05] bg-[#0e1218] px-4 pb-4 pt-4">
+      <div className="shrink-0 space-y-3 border-t border-white/[0.05] bg-[#0b1220] px-4 pb-4 pt-4">
         <a href="#games" onClick={onNavigate} className="group relative block overflow-hidden rounded-xl border border-primary/15 bg-gradient-to-br from-primary/[0.08] to-transparent p-3.5 transition hover:border-primary/35 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
           <div className="relative flex items-center gap-2.5">
             <div><p className="text-xs font-medium text-white">สิทธิพิเศษสำหรับสมาชิก</p><p className="mt-0.5 text-[10px] text-slate-500">เติมคุ้มกว่า รับส่วนลดทุกวัน</p></div>
           </div>
-          <span className="relative mt-3 flex items-center justify-between rounded-lg bg-primary px-3 py-2 text-[11px] font-semibold text-ink transition group-hover:bg-yellow-300">สมัครสมาชิกฟรี<ArrowUpRight className="size-3.5" /></span>
+          <span className="relative mt-3 flex items-center justify-between rounded-lg bg-primary px-3 py-2 text-[11px] font-semibold text-ink transition group-hover:bg-primary-hover">สมัครสมาชิกฟรี<ArrowUpRight className="size-3.5" /></span>
         </a>
         <a href="#reviews" onClick={onNavigate} className="group flex items-center gap-2.5 rounded-lg px-1 py-1.5 text-slate-400 transition hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
           <span className="grid size-8 place-items-center rounded-lg border border-white/[0.06] bg-white/[0.025]"><Headphones className="size-4" /></span>
