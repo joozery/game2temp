@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { CheckCircle2, ShoppingCart, Trash2 } from "lucide-react";
+import { CheckCircle2, ShoppingCart, Sparkles, ThumbsUp, Trash2 } from "lucide-react";
 import { OrderThumb } from "@/components/account/order-thumb";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetDescription, SheetTitle } from "@/components/ui/sheet";
@@ -10,6 +10,7 @@ import { MotionProvider, useSectionReveal } from "@/components/effects/motion";
 import { Community } from "./community";
 import { StoreHeader } from "./header";
 import { useRouter } from "next/navigation";
+import { GameShowcase } from "./game-showcase";
 import { Footer } from "./footer";
 import { HeroBanner } from "./hero-banner";
 import { PopularGames, ProductCatalog, type CartItem } from "./product-catalog";
@@ -52,6 +53,8 @@ export function Storefront() {
           <HeroBanner />
           <MobileQuickActions />
           <PopularGames />
+          <GameShowcase id="recommended" title="เกมแนะนำ" subtitle="เกมที่ลูกค้าเติมมากที่สุดตอนนี้" icon={ThumbsUp} pick={(games) => games.filter((g) => !g.isNew && (g.badge === "ยอดนิยม" || g.badge === "มาแรง") && g.category !== "card").slice(0, 4)} />
+          <GameShowcase id="new-games" title="เกมใหม่" subtitle="เกมและบัตรเติมเงินที่เพิ่งเปิดให้เติม" icon={Sparkles} pick={(games) => games.filter((g) => g.isNew)} list />
           <Promotions />
           <ProductCatalog query={query} onAdd={add} />
           <PremiumApps query={query} onAdd={add} />
