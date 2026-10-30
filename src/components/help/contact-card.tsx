@@ -10,7 +10,7 @@ const channels: { icon: LucideIcon; title: string; text: string; action: string;
 
 export function ContactCard() {
   return (
-    <Card className="overflow-hidden bg-gradient-to-br from-section/70 to-card p-4 sm:p-5">
+    <Card id="contact" className="scroll-mt-20 overflow-hidden bg-gradient-to-br from-section/70 to-card p-4 sm:p-5">
       <div className="flex items-start gap-3">
         <div className="flex-1">
           <h2 className="text-xl font-extrabold leading-tight">ยังไม่ได้คำตอบ?<br />ติดต่อทีมงานของเรา</h2>

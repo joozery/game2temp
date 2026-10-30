@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ArrowRight, Megaphone } from "lucide-react";
 import { Artwork } from "./artwork";
 import { SectionHeading } from "./section-heading";
@@ -30,7 +31,7 @@ export function Promotions() {
         </a>
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
-          <a
+          <Link
             href="/boxes"
             className="group relative isolate flex min-h-40 flex-col justify-center overflow-hidden rounded-3xl bg-mint bg-cover bg-right p-6 text-foreground"
             style={{ backgroundImage: 'url("/images/mystery-box.png")' }}
@@ -42,7 +43,7 @@ export function Promotions() {
             <span className={`${ctaClass} mt-3 w-fit`}>
               เปิดกล่องลุ้น <ArrowRight className="size-4" />
             </span>
-          </a>
+          </Link>
           <a
             href="/accounts"
             className="group relative isolate flex min-h-40 flex-col justify-center overflow-hidden rounded-3xl bg-[#ffe3e4] bg-cover p-6 text-foreground"

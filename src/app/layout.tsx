@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Kanit } from "next/font/google";
+import { FloatingContact } from "@/components/storefront/floating-contact";
 import "./globals.css";
 
 const kanit = Kanit({
@@ -25,7 +26,7 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="th" className={`${kanit.variable} h-full antialiased`}>
-      <body className="flex min-h-full flex-col font-sans">{children}</body>
+      <body className="flex min-h-full flex-col font-sans">{children}<FloatingContact /></body>
     </html>
   );
 }

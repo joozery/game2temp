@@ -2,12 +2,15 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { ProfileAvatarImage } from "@/components/account/profile-avatar-image";
 import { useAccountProfile } from "@/lib/account-profile";
+import { signOut, useSignedIn } from "@/lib/auth";
+import { useSettingsPreferences, type NotificationTopic } from "@/lib/settings-preferences";
 import { AnimatePresence, motion } from "motion/react";
 import {
-  Bell, ChevronDown, Gift, History, LogOut, Plus, Search,
-  Settings, ShoppingCart, User, Wallet, X,
+  Bell, ChevronDown, Gift, History, LogIn, LogOut, Plus, Search,
+  Settings, Share2, ShoppingCart, User, Wallet, X,
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -21,9 +24,9 @@ import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/compone
 import { cn } from "@/lib/utils";
 
 const initialNotifications = [
-  { id: 1, title: "โปรเติม RoV ลด 20%", text: "ใช้โค้ด PK20 ได้ถึงสิ้นเดือนนี้", time: "5 นาทีที่แล้ว", unread: true },
-  { id: 2, title: "คำสั่งซื้อ #10293 สำเร็จ", text: "Free Fire 310 เพชร เข้าบัญชีแล้ว", time: "2 ชม. ที่แล้ว", unread: true },
-  { id: 3, title: "ยินดีต้อนรับสู่ PK-TOPUP", text: "รับส่วนลดสมาชิกใหม่ 5%", time: "เมื่อวาน", unread: false },
+  { id: 1, topic: "promos" as NotificationTopic, title: "โปรเติม RoV ลด 20%", text: "ใช้โค้ด PK20 ได้ถึงสิ้นเดือนนี้", time: "5 นาทีที่แล้ว", unread: true },
+  { id: 2, topic: "orders" as NotificationTopic, title: "คำสั่งซื้อ #10293 สำเร็จ", text: "Free Fire 310 เพชร เข้าบัญชีแล้ว", time: "2 ชม. ที่แล้ว", unread: true },
+  { id: 3, topic: "promos" as NotificationTopic, title: "ยินดีต้อนรับสู่ PK-TOPUP", text: "รับส่วนลดสมาชิกใหม่ 5%", time: "เมื่อวาน", unread: false },
 ];
 
 const quickTags = ["RoV", "Free Fire", "Genshin Impact", "Valorant"];
@@ -84,11 +87,15 @@ export function StoreHeader({
   accountMode?: boolean;
 }) {
   const inputRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
+  const signedIn = useSignedIn();
   const accountProfile = useAccountProfile();
-  const displayName = accountProfile.name.trim().split(/\s+/)[0] || "ผู้ใช้";
+  const settingsPreferences = useSettingsPreferences();
+  const displayName = signedIn ? accountProfile.name.trim().split(/\s+/)[0] || "ผู้ใช้" : "ผู้เยี่ยมชม";
   const [notifications, setNotifications] = useState(initialNotifications);
-  const [logoutInfoOpen, setLogoutInfoOpen] = useState(false);
-  const unread = notifications.filter((n) => n.unread).length;
+  const [logoutOpen, setLogoutOpen] = useState(false);
+  const visibleNotifications = notifications.filter((notification) => settingsPreferences.notifications[notification.topic]);
+  const unread = visibleNotifications.filter((notification) => notification.unread).length;
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -106,7 +113,7 @@ export function StoreHeader({
       <div className="mx-auto flex h-16 max-w-[1480px] items-center gap-2 px-4 sm:gap-3 sm:px-6 lg:px-8">
         {/* App-style greeting on small screens; the menu itself lives in the bottom tab bar. */}
         <div className="min-w-0 leading-tight md:hidden">
-          <p className="text-[11px] text-muted-foreground">สวัสดี 👋 ยินดีต้อนรับกลับมา</p>
+          <p className="text-[11px] text-muted-foreground">{signedIn ? "สวัสดี 👋 ยินดีต้อนรับกลับมา" : "สวัสดี 👋 ยินดีต้อนรับ"}</p>
           <p className="truncate text-base font-semibold">{displayName}</p>
         </div>
 
@@ -132,7 +139,7 @@ export function StoreHeader({
         </div>}
 
         <div className="ml-auto flex items-center gap-1 sm:gap-1.5">
-          <div className="mr-1.5 hidden h-10 items-center gap-2.5 rounded-xl border border-primary/40 bg-primary/10 pl-3 pr-1 sm:flex">
+          {signedIn && <div className="mr-1.5 hidden h-10 items-center gap-2.5 rounded-xl border border-primary/40 bg-primary/10 pl-3 pr-1 sm:flex">
             <Wallet className="size-4 text-success" />
             <span className="leading-none">
               <span className="block text-[10px] text-muted-foreground">ยอดเงินคงเหลือ</span>
@@ -141,9 +148,9 @@ export function StoreHeader({
             <Link href="/wallet" className="shine ml-1 flex h-8 items-center gap-1 rounded-lg bg-primary px-2.5 text-[12px] font-semibold text-ink transition-colors hover:bg-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-white">
               <Plus className="size-3.5" /> เติมเงิน
             </Link>
-          </div>
+          </div>}
 
-          <Popover>
+          {signedIn && <Popover>
             <PopoverTrigger className={iconButton} aria-label={`การแจ้งเตือน ${unread} รายการใหม่`}>
               <Bell className="size-[19px]" strokeWidth={1.8} />
               {unread > 0 && (
@@ -168,7 +175,7 @@ export function StoreHeader({
                 </button>
               </div>
               <ul className="p-1.5">
-                {notifications.map((n) => (
+                {visibleNotifications.map((n) => (
                   <li key={n.id} className="flex gap-3 rounded-xl px-2.5 py-2.5 hover:bg-muted">
                     <span className={cn("mt-1.5 size-2 shrink-0 rounded-full", n.unread ? "bg-primary" : "bg-border")} />
                     <div className="min-w-0">
@@ -178,9 +185,10 @@ export function StoreHeader({
                     </div>
                   </li>
                 ))}
+                {visibleNotifications.length === 0 && <li className="px-4 py-6 text-center text-xs text-muted-foreground">ไม่มีการแจ้งเตือนที่เปิดใช้งาน</li>}
               </ul>
             </PopoverContent>
-          </Popover>
+          </Popover>}
 
           {onCart && <button className={iconButton} aria-label={`ตะกร้าสินค้า ${cartCount} รายการ`} onClick={onCart}>
             {/* Re-keyed on count so the cart wiggles each time something is added. */}
@@ -208,9 +216,9 @@ export function StoreHeader({
             </AnimatePresence>
           </button>}
 
-          <span className="mx-1.5 hidden h-6 w-px bg-border sm:block" />
+          {signedIn && <span className="mx-1.5 hidden h-6 w-px bg-border sm:block" />}
 
-          <DropdownMenu>
+          {signedIn ? <DropdownMenu>
             <DropdownMenuTrigger className="flex items-center gap-2.5 rounded-xl p-1 pr-1.5 transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring data-[state=open]:bg-muted md:pr-2.5">
               <span className="relative size-8 overflow-visible rounded-lg bg-gradient-to-br from-primary to-primary-hover text-sm font-bold text-ink">
                 <ProfileAvatarImage alt={`รูปโปรไฟล์ ${displayName}`} sizes="32px" className="rounded-lg object-cover object-top" />
@@ -231,17 +239,22 @@ export function StoreHeader({
               <DropdownMenuItem asChild className="sm:hidden"><Link href="/wallet"><Wallet /> ยอดเงิน ฿1,250.00</Link></DropdownMenuItem>
               <DropdownMenuItem asChild><Link href="/profile"><User /> โปรไฟล์</Link></DropdownMenuItem>
               <DropdownMenuItem asChild><Link href="/orders"><History /> ประวัติการสั่งซื้อ</Link></DropdownMenuItem>
+              <DropdownMenuItem asChild><Link href="/affiliate"><Share2 /> ตัวแทนแนะนำ</Link></DropdownMenuItem>
               <DropdownMenuItem asChild><Link href="/settings"><Settings /> ตั้งค่าบัญชี</Link></DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem onSelect={() => setLogoutInfoOpen(true)} className="text-coral [&_svg]:!text-coral"><LogOut /> ออกจากระบบ</DropdownMenuItem>
+              <DropdownMenuItem onSelect={() => setLogoutOpen(true)} className="text-coral [&_svg]:!text-coral"><LogOut /> ออกจากระบบ</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
+          : <div className="flex items-center gap-1.5">
+            <Link href="/login?mode=register" className="hidden h-10 items-center rounded-xl px-3 text-[13px] font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground sm:inline-flex">สมัครสมาชิก</Link>
+            <Link href="/login" className="shine inline-flex h-10 items-center gap-1.5 rounded-xl bg-primary px-4 text-[13px] font-semibold text-ink transition-colors hover:bg-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"><LogIn className="size-4" /> เข้าสู่ระบบ</Link>
+          </div>}
         </div>
       </div>
 
       {onSearch && <div className="flex gap-2 px-4 pb-3 sm:px-6 md:hidden">
         <SearchField query={query} onSearch={onSearch} className="h-11 flex-1 rounded-2xl" />
-        <Link
+        {signedIn && <Link
           href="/wallet"
           aria-label="ยอดเงิน ฿1,250.00 แตะเพื่อเติมเงิน"
           className="shine flex h-11 shrink-0 items-center gap-1.5 rounded-2xl bg-primary px-3 text-[13px] font-semibold text-ink transition-transform active:scale-95 sm:hidden"
@@ -251,9 +264,18 @@ export function StoreHeader({
           <span className="grid size-5 place-items-center rounded-md bg-coral text-white">
             <Plus className="size-3" />
           </span>
-        </Link>
+        </Link>}
       </div>}
-      <Dialog open={logoutInfoOpen} onOpenChange={setLogoutInfoOpen}><DialogContent><DialogTitle>ออกจากระบบ</DialogTitle><DialogDescription className="mt-2">เว็บไซต์ตัวอย่างนี้ยังไม่ได้เชื่อมต่อระบบเข้าสู่ระบบ จึงยังไม่สามารถออกจากบัญชีได้</DialogDescription><button type="button" onClick={() => setLogoutInfoOpen(false)} className="mt-5 h-10 w-full rounded-xl bg-primary text-sm font-bold text-ink">เข้าใจแล้ว</button></DialogContent></Dialog>
+      <Dialog open={logoutOpen} onOpenChange={setLogoutOpen}>
+        <DialogContent>
+          <DialogTitle>ออกจากระบบ</DialogTitle>
+          <DialogDescription className="mt-2">ต้องการออกจากระบบ PK-TOPUP ใช่หรือไม่? คุณสามารถเข้าสู่ระบบกลับมาได้ทุกเมื่อ</DialogDescription>
+          <div className="mt-5 grid grid-cols-2 gap-2">
+            <button onClick={() => setLogoutOpen(false)} className="h-11 rounded-xl border border-border text-sm font-medium transition hover:bg-muted">ยกเลิก</button>
+            <button onClick={() => { setLogoutOpen(false); signOut(); router.push("/login"); }} className="h-11 rounded-xl bg-coral text-sm font-semibold text-white transition hover:brightness-95">ออกจากระบบ</button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </header>
   );
 }

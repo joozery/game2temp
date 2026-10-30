@@ -3,20 +3,17 @@
 import { useSyncExternalStore } from "react";
 
 export type NotificationTopic = "orders" | "promos" | "wallet" | "security";
-export type NotificationChannel = "email" | "line";
 export type SettingsPreferences = {
-  twoFactor: boolean;
-  notifications: Record<NotificationTopic, Record<NotificationChannel, boolean>>;
+  notifications: Record<NotificationTopic, boolean>;
   connections: { line: boolean; google: boolean };
 };
 
 export const defaultSettingsPreferences: SettingsPreferences = {
-  twoFactor: true,
   notifications: {
-    orders: { email: false, line: true },
-    promos: { email: true, line: true },
-    wallet: { email: true, line: true },
-    security: { email: true, line: true },
+    orders: true,
+    promos: true,
+    wallet: true,
+    security: true,
   },
   connections: { line: true, google: false },
 };
@@ -45,18 +42,28 @@ function getSnapshot() {
 export function useSettingsPreferences(): SettingsPreferences {
   const snapshot = useSyncExternalStore(subscribe, getSnapshot, () => DEFAULT_SNAPSHOT);
   try {
-    const value = JSON.parse(snapshot) as SettingsPreferences;
-    if (typeof value.twoFactor === "boolean" && value.notifications &&
-      Object.keys(defaultSettingsPreferences.notifications).every((topic) => {
-        const channels = value.notifications[topic as NotificationTopic];
-        return channels && typeof channels.email === "boolean" && typeof channels.line === "boolean";
-      })) return {
-        ...value,
+    const value = JSON.parse(snapshot) as {
+      notifications?: Record<NotificationTopic, boolean | { email?: boolean; line?: boolean }>;
+      connections?: { line?: boolean; google?: boolean };
+    };
+    if (value.notifications) {
+      const notifications = {} as Record<NotificationTopic, boolean>;
+      for (const topic of Object.keys(defaultSettingsPreferences.notifications) as NotificationTopic[]) {
+        const stored = value.notifications[topic];
+        notifications[topic] = typeof stored === "boolean"
+          ? stored
+          : stored && typeof stored === "object"
+            ? Boolean(stored.email || stored.line)
+            : defaultSettingsPreferences.notifications[topic];
+      }
+      return {
+        notifications,
         connections: {
           line: typeof value.connections?.line === "boolean" ? value.connections.line : defaultSettingsPreferences.connections.line,
           google: typeof value.connections?.google === "boolean" ? value.connections.google : defaultSettingsPreferences.connections.google,
         },
       };
+    }
   } catch {
     // Ignore malformed data from an older browser session.
   }

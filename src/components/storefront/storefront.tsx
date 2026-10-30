@@ -9,6 +9,7 @@ import { Sheet, SheetContent, SheetDescription, SheetTitle } from "@/components/
 import { MotionProvider, useSectionReveal } from "@/components/effects/motion";
 import { Community } from "./community";
 import { StoreHeader } from "./header";
+import { useRouter } from "next/navigation";
 import { Footer } from "./footer";
 import { HeroBanner } from "./hero-banner";
 import { PopularGames, ProductCatalog, type CartItem } from "./product-catalog";
@@ -19,6 +20,7 @@ import { MobileQuickActions } from "./mobile-quick-actions";
 import { MobileTabBar } from "./mobile-tab-bar";
 
 export function Storefront() {
+  const router = useRouter();
   const [query, setQuery] = useState("");
   const [cart, setCart] = useState<CartItem[]>([]);
   const [showCart, setShowCart] = useState(false);
@@ -79,7 +81,7 @@ export function Storefront() {
         </AnimatePresence>
       </div>
 
-      <MobileTabBar onTopUp={() => showToast("ระบบเติมเงินจะเปิดให้บริการเร็ว ๆ นี้")} />
+      <MobileTabBar onTopUp={() => router.push("/wallet")} />
 
       <Sheet open={showCart} onOpenChange={setShowCart}>
         <SheetContent side="auto" className="px-5 pt-5 lg:p-6">

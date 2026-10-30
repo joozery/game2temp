@@ -13,7 +13,7 @@ type Tab = { id: string; label: string; icon: LucideIcon; href: string; sections
 
 const leftTabs: Tab[] = [
   { id: "home", label: "หน้าแรก", icon: Home, href: "/#home", sections: ["home"] },
-  { id: "games", label: "เติมเกม", icon: Gamepad2, href: "/#games", sections: ["games", "accounts", "digital", "premium"] },
+  { id: "games", label: "เติมเกม", icon: Gamepad2, href: "/games", sections: ["games", "accounts", "digital", "premium"] },
 ];
 const rightTabs: Tab[] = [
   { id: "promo", label: "โปรโมชั่น", icon: BadgePercent, href: "/promotions", sections: ["promotions"] },
@@ -42,7 +42,10 @@ function useActiveTab() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, [onHome]);
-  return onHome ? active : pathname === "/promotions" ? "promo" : "";
+  if (onHome) return active;
+  const section = pathname.split("/")[1];
+  if (section === "promotions") return "promo";
+  return ["games", "accounts", "digital", "premium", "boxes"].includes(section) ? "games" : "";
 }
 
 function TabLink({ tab, active }: { tab: Tab; active: boolean }) {

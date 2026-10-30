@@ -105,8 +105,23 @@ html {
   }
 }
 
+/* Scrolling still works everywhere; only the bars are hidden. */
+* {
+  scrollbar-width: none;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+/* Kept as an explicit marker on horizontal scrollers. */
 .no-scrollbar {
   scrollbar-width: none;
+}
+
+.login-input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px white inset;
+  -webkit-text-fill-color: #101827;
 }
 
 /* ---------- Sparkle & shine effects ---------- */

@@ -7,9 +7,10 @@ import { usePathname } from "next/navigation";
 import {
   ArrowUpRight, BadgePercent, BookOpen, ChevronRight, CircleHelp,
   Dices, Gamepad2, Headphones, History, Home, Newspaper,
-  Package, Settings, ShieldCheck, ShoppingBag, Sparkles, User, Wallet, X,
+  Package, Settings, Share2, ShieldCheck, ShoppingBag, Sparkles, User, Wallet, X,
   type LucideIcon,
 } from "lucide-react";
+import { useSignedIn } from "@/lib/auth";
 import { cn } from "@/lib/utils";
 
 type NavItem = {
@@ -43,10 +44,11 @@ const accountLinks: NavItem[] = [
   { id: "profile", icon: User, label: "โปรไฟล์", href: "/profile", tone: tones.sunshine },
   { id: "history", icon: History, label: "ประวัติการสั่งซื้อ", href: "/orders", tone: tones.mint },
   { id: "wallet", icon: Wallet, label: "กระเป๋าเงิน", href: "/wallet", tone: tones.emerald },
+  { id: "affiliate", icon: Share2, label: "ตัวแทนแนะนำ", href: "/affiliate", tone: tones.coral },
   { id: "settings", icon: Settings, label: "ตั้งค่าบัญชี", href: "/settings", tone: tones.pastel },
 ];
 
-const routeSections: Record<string, string> = { "/profile": "profile", "/how-to": "how", "/games": "games", "/accounts": "accounts", "/digital": "digital", "/premium": "premium", "/boxes": "boxes", "/promotions": "promotions", "/help": "help", "/orders": "history", "/wallet": "wallet", "/settings": "settings", "/articles": "news" };
+const routeSections: Record<string, string> = { "/profile": "profile", "/how-to": "how", "/games": "games", "/accounts": "accounts", "/digital": "digital", "/premium": "premium", "/boxes": "boxes", "/promotions": "promotions", "/help": "help", "/orders": "history", "/wallet": "wallet", "/settings": "settings", "/affiliate": "affiliate", "/articles": "news" };
 
 const exploreLinks: NavItem[] = [
   { id: "news", icon: Newspaper, label: "ข่าวสารและบทความ", href: "/articles", tone: tones.sunshine },
@@ -137,6 +139,7 @@ function NavGroup({ title, links, active, onNavigate }: {
 
 export function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
   const { active, setActive } = useActiveSection();
+  const signedIn = useSignedIn();
   const navigate = (id: string) => {
     setActive(id);
     onNavigate?.();
@@ -162,12 +165,12 @@ export function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
       </nav>
 
       <div className="shrink-0 space-y-3 border-t border-border bg-background px-4 pb-4 pt-4">
-        <Link href="/#games" onClick={onNavigate} className="group relative flex min-h-64 flex-col overflow-hidden rounded-xl border border-primary/40 bg-section p-3.5 transition hover:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
+        <Link href={signedIn ? "/promotions" : "/login?mode=register"} onClick={onNavigate} className="group relative flex min-h-64 flex-col overflow-hidden rounded-xl border border-primary/40 bg-section p-3.5 transition hover:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
           <span aria-hidden className="pointer-events-none absolute inset-x-0 top-0 bottom-14 bg-[url('/sidebarcover.png')] bg-cover bg-bottom transition-transform duration-500 group-hover:scale-105" />
           <div className="relative flex items-center gap-2.5">
             <div><p className="text-xs font-semibold text-foreground">สิทธิพิเศษสำหรับสมาชิก</p><p className="mt-0.5 text-[10px] text-muted-foreground">เติมคุ้มกว่า รับส่วนลดทุกวัน</p></div>
           </div>
-          <span className="relative mt-auto flex items-center justify-between rounded-lg bg-primary px-3 py-2 text-[11px] font-semibold text-ink transition group-hover:bg-primary-hover">สมัครสมาชิกฟรี<ArrowUpRight className="size-3.5" /></span>
+          <span className="relative mt-auto flex items-center justify-between rounded-lg bg-primary px-3 py-2 text-[11px] font-semibold text-ink transition group-hover:bg-primary-hover">{signedIn ? "ดูโปรโมชั่นสมาชิก" : "สมัครสมาชิกฟรี"}<ArrowUpRight className="size-3.5" /></span>
         </Link>
         <Link href="/help" onClick={onNavigate} className="group flex items-center gap-2.5 rounded-lg px-1 py-1.5 text-muted-foreground transition hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
           <span className="grid size-8 place-items-center rounded-lg bg-mint/40 text-success"><Headphones className="size-4" /></span>
