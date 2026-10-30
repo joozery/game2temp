@@ -3,43 +3,11 @@
 import { useState } from "react";
 import Image from "next/image";
 import { BadgeCheck, ShoppingCart, Sparkles, Zap } from "lucide-react";
+import { apps, premiumCategories, saving, type PremiumApp } from "@/lib/premium-apps";
 import { ChipGroup } from "@/components/ui/toggle-group";
 import { cn } from "@/lib/utils";
 import { SectionHeading } from "./section-heading";
 import type { CartItem } from "./product-catalog";
-
-type Plan = { months: number; price: number };
-type PremiumApp = {
-  id: string;
-  name: string;
-  tagline: string;
-  category: "ดูหนัง & ซีรีส์" | "ฟังเพลง" | "AI & ทำงาน";
-  access: "บัญชีส่วนตัว" | "จอแชร์";
-  badge?: "ขายดี" | "ใหม่";
-  plans: Plan[];
-};
-
-// Sample prices until the real price list arrives.
-const apps: PremiumApp[] = [
-  { id: "netflix", name: "Netflix Premium", tagline: "4K Ultra HD ดูได้ทุกอุปกรณ์", category: "ดูหนัง & ซีรีส์", access: "จอแชร์", badge: "ขายดี", plans: [{ months: 1, price: 99 }, { months: 3, price: 279 }, { months: 12, price: 990 }] },
-  { id: "youtube", name: "YouTube Premium", tagline: "ไม่มีโฆษณา เล่นเบื้องหลังได้", category: "ดูหนัง & ซีรีส์", access: "บัญชีส่วนตัว", badge: "ขายดี", plans: [{ months: 1, price: 59 }, { months: 3, price: 169 }, { months: 12, price: 590 }] },
-  { id: "disney", name: "Disney+ Hotstar", tagline: "Marvel, Pixar, Star Wars ครบ", category: "ดูหนัง & ซีรีส์", access: "จอแชร์", plans: [{ months: 1, price: 79 }, { months: 3, price: 219 }, { months: 12, price: 790 }] },
-  { id: "prime", name: "Prime Video", tagline: "ซีรีส์ออริจินัล พากย์ไทย", category: "ดูหนัง & ซีรีส์", access: "จอแชร์", plans: [{ months: 1, price: 69 }, { months: 3, price: 189 }] },
-  { id: "spotify", name: "Spotify Premium", tagline: "ฟังเพลงไม่มีโฆษณา ดาวน์โหลดได้", category: "ฟังเพลง", access: "บัญชีส่วนตัว", badge: "ขายดี", plans: [{ months: 1, price: 69 }, { months: 3, price: 199 }, { months: 12, price: 690 }] },
-  { id: "apple-music", name: "Apple Music", tagline: "เสียง Lossless และ Spatial Audio", category: "ฟังเพลง", access: "บัญชีส่วนตัว", plans: [{ months: 1, price: 59 }, { months: 3, price: 169 }] },
-  { id: "chatgpt", name: "ChatGPT Plus", tagline: "ใช้งานโมเดลล่าสุด เร็วกว่าเดิม", category: "AI & ทำงาน", access: "บัญชีส่วนตัว", badge: "ใหม่", plans: [{ months: 1, price: 590 }, { months: 3, price: 1690 }] },
-  { id: "canva", name: "Canva Pro", tagline: "เทมเพลตพรีเมียม ลบพื้นหลังได้", category: "AI & ทำงาน", access: "บัญชีส่วนตัว", plans: [{ months: 1, price: 59 }, { months: 12, price: 390 }] },
-  { id: "capcut", name: "CapCut Pro", tagline: "ตัดต่อวิดีโอ เอฟเฟกต์ครบ ไม่มีลายน้ำ", category: "AI & ทำงาน", access: "บัญชีส่วนตัว", plans: [{ months: 1, price: 129 }, { months: 12, price: 990 }] },
-];
-
-const filters = ["ทั้งหมด", "ดูหนัง & ซีรีส์", "ฟังเพลง", "AI & ทำงาน"];
-
-/** Percent saved against buying the shortest plan repeatedly. */
-function saving(app: PremiumApp, plan: Plan) {
-  const base = app.plans[0];
-  const full = (base.price / base.months) * plan.months;
-  return Math.round((1 - plan.price / full) * 100);
-}
 
 function PremiumAppCard({ app, onAdd }: { app: PremiumApp; onAdd: (item: CartItem) => void }) {
   const [plan, setPlan] = useState(app.plans[0]);
@@ -113,7 +81,7 @@ function PremiumAppCard({ app, onAdd }: { app: PremiumApp; onAdd: (item: CartIte
         <button
           type="button"
           aria-label={`เพิ่ม ${app.name} ${plan.months} เดือน ลงตะกร้า`}
-          onClick={() => onAdd({ name: `${app.name} ${plan.months} เดือน`, price: plan.price })}
+          onClick={() => onAdd({ name: `${app.name} ${plan.months} เดือน`, price: plan.price, art: app.id })}
           className="grid size-10 shrink-0 place-items-center rounded-xl bg-primary text-ink transition hover:bg-coral hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
         >
           <ShoppingCart className="size-4" />
@@ -131,8 +99,8 @@ export function PremiumApps({ query, onAdd }: { query: string; onAdd: (item: Car
 
   return (
     <section id="premium">
-      <SectionHeading title="แอปพรีเมียม" subtitle="ดูหนัง ฟังเพลง ใช้ AI ราคาคุ้ม รับประกันตลอดอายุ" icon={Sparkles}>
-        <ChipGroup label="กรองแอปพรีเมียม" options={filters} value={filter} onValueChange={setFilter} />
+      <SectionHeading title="แอปพรีเมียม" subtitle="ดูหนัง ฟังเพลง ใช้ AI ราคาคุ้ม รับประกันตลอดอายุ" icon={Sparkles} href="/premium">
+        <ChipGroup label="กรองแอปพรีเมียม" options={["ทั้งหมด", ...premiumCategories]} value={filter} onValueChange={setFilter} />
       </SectionHeading>
       {items.length ? (
         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">

@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion } from "motion/react";
 import { BadgePercent, Gamepad2, Home, LayoutGrid, Plus, Wallet, type LucideIcon } from "lucide-react";
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
@@ -10,18 +12,21 @@ import { SidebarContent } from "./sidebar";
 type Tab = { id: string; label: string; icon: LucideIcon; href: string; sections: string[] };
 
 const leftTabs: Tab[] = [
-  { id: "home", label: "หน้าแรก", icon: Home, href: "#home", sections: ["home"] },
-  { id: "games", label: "เติมเกม", icon: Gamepad2, href: "#games", sections: ["games", "accounts", "digital", "premium"] },
+  { id: "home", label: "หน้าแรก", icon: Home, href: "/#home", sections: ["home"] },
+  { id: "games", label: "เติมเกม", icon: Gamepad2, href: "/#games", sections: ["games", "accounts", "digital", "premium"] },
 ];
 const rightTabs: Tab[] = [
-  { id: "promo", label: "โปรโมชั่น", icon: BadgePercent, href: "#promotions", sections: ["promotions"] },
+  { id: "promo", label: "โปรโมชั่น", icon: BadgePercent, href: "/promotions", sections: ["promotions"] },
 ];
 const allTabs = [...leftTabs, ...rightTabs];
 
 /** Picks the tab whose sections are nearest above the fold as the user scrolls. */
 function useActiveTab() {
   const [active, setActive] = useState("home");
+  const pathname = usePathname();
+  const onHome = pathname === "/";
   useEffect(() => {
+    if (!onHome) return;
     const ids = allTabs.flatMap((t) => t.sections);
     const onScroll = () => {
       let current = "home";
@@ -36,14 +41,14 @@ function useActiveTab() {
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-  return active;
+  }, [onHome]);
+  return onHome ? active : pathname === "/promotions" ? "promo" : "";
 }
 
 function TabLink({ tab, active }: { tab: Tab; active: boolean }) {
   const Icon = tab.icon;
   return (
-    <a
+    <Link
       href={tab.href}
       aria-current={active ? "page" : undefined}
       className="relative flex flex-1 flex-col items-center gap-1 py-2 text-[10px] font-medium transition-transform active:scale-90"
@@ -57,7 +62,7 @@ function TabLink({ tab, active }: { tab: Tab; active: boolean }) {
       )}
       <Icon className={cn("relative size-[22px] transition-colors", active ? "text-ink" : "text-muted-foreground")} strokeWidth={active ? 2.2 : 1.8} />
       <span className={cn("relative", active ? "text-foreground" : "text-muted-foreground")}>{tab.label}</span>
-    </a>
+    </Link>
   );
 }
 

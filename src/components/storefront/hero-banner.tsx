@@ -24,7 +24,7 @@ const slides = [
     title: "กล่องสุ่มสุดคุ้ม",
     highlight: "ลุ้นไอเทมหายาก",
     text: "เปิดกล่องรับรางวัลมากมาย ทั้งเพชร สกิน และไอดีเกมระดับพรีเมียม",
-    cta: { label: "เปิดกล่องเลย", href: "#promotions" },
+    cta: { label: "เปิดกล่องเลย", href: "/boxes" },
   },
   {
     image: "/images/game-artwork-atlas.png",
@@ -33,7 +33,7 @@ const slides = [
     title: "เติมเยอะ ยิ่งคุ้ม",
     highlight: "ลดสูงสุด 20%",
     text: "ใช้โค้ด PK20 รับส่วนลดเพิ่ม เมื่อเติมเกมครบ 500 บาทขึ้นไป",
-    cta: { label: "ดูโปรโมชั่น", href: "#promotions" },
+    cta: { label: "ดูโปรโมชั่น", href: "/promotions" },
   },
 ];
 
@@ -125,7 +125,7 @@ export function HeroBanner() {
                 </span>
               </motion.a>
               <motion.a
-                href="#how"
+                href="/how-to"
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.97 }}
                 className="hidden h-12 items-center rounded-xl border border-ink/15 sm:inline-flex bg-card/70 px-6 font-medium backdrop-blur transition-colors hover:bg-card"

@@ -1,9 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import { ProfileAvatarImage } from "@/components/account/profile-avatar-image";
+import { useAccountProfile } from "@/lib/account-profile";
 import { AnimatePresence, motion } from "motion/react";
 import {
-  Bell, ChevronDown, History, LogOut, Plus, Search,
+  Bell, ChevronDown, Gift, History, LogOut, Plus, Search,
   Settings, ShoppingCart, User, Wallet, X,
 } from "lucide-react";
 import {
@@ -14,6 +17,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 
 const initialNotifications = [
@@ -66,18 +70,24 @@ function SearchField({
 }
 
 export function StoreHeader({
-  query,
+  query = "",
   onSearch,
-  cartCount,
+  cartCount = 0,
   onCart,
+  accountMode = false,
 }: {
-  query: string;
-  onSearch: (value: string) => void;
-  cartCount: number;
-  onCart: () => void;
+  /** Search and cart are storefront-only; account pages omit them. */
+  query?: string;
+  onSearch?: (value: string) => void;
+  cartCount?: number;
+  onCart?: () => void;
+  accountMode?: boolean;
 }) {
   const inputRef = useRef<HTMLInputElement>(null);
+  const accountProfile = useAccountProfile();
+  const displayName = accountProfile.name.trim().split(/\s+/)[0] || "ผู้ใช้";
   const [notifications, setNotifications] = useState(initialNotifications);
+  const [logoutInfoOpen, setLogoutInfoOpen] = useState(false);
   const unread = notifications.filter((n) => n.unread).length;
 
   useEffect(() => {
@@ -97,10 +107,10 @@ export function StoreHeader({
         {/* App-style greeting on small screens; the menu itself lives in the bottom tab bar. */}
         <div className="min-w-0 leading-tight md:hidden">
           <p className="text-[11px] text-muted-foreground">สวัสดี 👋 ยินดีต้อนรับกลับมา</p>
-          <p className="truncate text-base font-semibold">Nattapong</p>
+          <p className="truncate text-base font-semibold">{displayName}</p>
         </div>
 
-        <div className="hidden min-w-0 flex-1 items-center gap-4 md:flex">
+        {onSearch && <div className="hidden min-w-0 flex-1 items-center gap-4 md:flex">
           <SearchField query={query} onSearch={onSearch} inputRef={inputRef} className="w-full max-w-md" />
           <div className="hidden items-center gap-1.5 2xl:flex">
             <span className="text-[11px] text-muted-foreground">ยอดนิยม:</span>
@@ -114,7 +124,12 @@ export function StoreHeader({
               </button>
             ))}
           </div>
-        </div>
+        </div>}
+
+        {accountMode && !onSearch && <div className="hidden min-w-0 flex-1 items-center gap-4 md:flex">
+          <Link href="/#games" className="flex h-10 min-w-0 max-w-[500px] flex-1 items-center gap-2.5 rounded-full border border-border bg-card px-4 text-sm text-muted-foreground shadow-sm transition hover:border-primary hover:text-foreground"><Search className="size-4 shrink-0" /><span className="truncate">ค้นหาเกม / สินค้า / บทความ...</span></Link>
+          <Link href="/promotions" className="hidden shrink-0 items-center gap-2 rounded-xl bg-primary/15 px-3 py-2 text-xs font-semibold text-ink transition hover:bg-primary/30 xl:inline-flex"><Gift className="size-5 text-coral" /> รับโบนัสพิเศษวันนี้!</Link>
+        </div>}
 
         <div className="ml-auto flex items-center gap-1 sm:gap-1.5">
           <div className="mr-1.5 hidden h-10 items-center gap-2.5 rounded-xl border border-primary/40 bg-primary/10 pl-3 pr-1 sm:flex">
@@ -123,9 +138,9 @@ export function StoreHeader({
               <span className="block text-[10px] text-muted-foreground">ยอดเงินคงเหลือ</span>
               <span className="mt-0.5 block text-[13px] font-semibold tabular-nums text-foreground">฿1,250.00</span>
             </span>
-            <button className="shine ml-1 flex h-8 items-center gap-1 rounded-lg bg-primary px-2.5 text-[12px] font-semibold text-ink transition-colors hover:bg-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-white">
+            <Link href="/wallet" className="shine ml-1 flex h-8 items-center gap-1 rounded-lg bg-primary px-2.5 text-[12px] font-semibold text-ink transition-colors hover:bg-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-white">
               <Plus className="size-3.5" /> เติมเงิน
-            </button>
+            </Link>
           </div>
 
           <Popover>
@@ -167,7 +182,7 @@ export function StoreHeader({
             </PopoverContent>
           </Popover>
 
-          <button className={iconButton} aria-label={`ตะกร้าสินค้า ${cartCount} รายการ`} onClick={onCart}>
+          {onCart && <button className={iconButton} aria-label={`ตะกร้าสินค้า ${cartCount} รายการ`} onClick={onCart}>
             {/* Re-keyed on count so the cart wiggles each time something is added. */}
             <motion.span
               key={cartCount}
@@ -191,42 +206,43 @@ export function StoreHeader({
                 </motion.span>
               )}
             </AnimatePresence>
-          </button>
+          </button>}
 
           <span className="mx-1.5 hidden h-6 w-px bg-border sm:block" />
 
           <DropdownMenu>
             <DropdownMenuTrigger className="flex items-center gap-2.5 rounded-xl p-1 pr-1.5 transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring data-[state=open]:bg-muted md:pr-2.5">
-              <span className="relative grid size-8 place-items-center rounded-lg bg-gradient-to-br from-primary to-primary-hover text-sm font-bold text-ink">
-                N
+              <span className="relative size-8 overflow-visible rounded-lg bg-gradient-to-br from-primary to-primary-hover text-sm font-bold text-ink">
+                <ProfileAvatarImage alt={`รูปโปรไฟล์ ${displayName}`} sizes="32px" className="rounded-lg object-cover object-top" />
                 <span className="absolute -bottom-0.5 -right-0.5 size-2.5 rounded-full bg-success ring-2 ring-white" />
               </span>
               <span className="hidden text-left leading-tight md:block">
-                <span className="block text-[13px] font-medium">Nattapong</span>
+                <span className="block text-[13px] font-medium">{displayName}</span>
               </span>
               <ChevronDown className="hidden size-3.5 text-muted-foreground md:block" />
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-64 p-1.5">
               <div className="mb-1 rounded-xl bg-section p-3 text-foreground">
                 <div className="flex items-center gap-2.5">
-                  <span className="grid size-9 place-items-center rounded-lg bg-gradient-to-br from-primary to-primary-hover font-bold text-ink">N</span>
-                  <p className="min-w-0 truncate text-sm font-semibold">Nattapong S.</p>
+                  <span className="relative size-9 overflow-hidden rounded-lg bg-gradient-to-br from-primary to-primary-hover"><ProfileAvatarImage alt="" sizes="36px" /></span>
+                  <p className="min-w-0 truncate text-sm font-semibold">{accountProfile.name}</p>
                 </div>
               </div>
-              <DropdownMenuItem className="sm:hidden"><Wallet /> ยอดเงิน ฿1,250.00</DropdownMenuItem>
-              <DropdownMenuItem><User /> โปรไฟล์</DropdownMenuItem>
-              <DropdownMenuItem><History /> ประวัติการสั่งซื้อ</DropdownMenuItem>
-              <DropdownMenuItem><Settings /> ตั้งค่าบัญชี</DropdownMenuItem>
+              <DropdownMenuItem asChild className="sm:hidden"><Link href="/wallet"><Wallet /> ยอดเงิน ฿1,250.00</Link></DropdownMenuItem>
+              <DropdownMenuItem asChild><Link href="/profile"><User /> โปรไฟล์</Link></DropdownMenuItem>
+              <DropdownMenuItem asChild><Link href="/orders"><History /> ประวัติการสั่งซื้อ</Link></DropdownMenuItem>
+              <DropdownMenuItem asChild><Link href="/settings"><Settings /> ตั้งค่าบัญชี</Link></DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem className="text-coral [&_svg]:!text-coral"><LogOut /> ออกจากระบบ</DropdownMenuItem>
+              <DropdownMenuItem onSelect={() => setLogoutInfoOpen(true)} className="text-coral [&_svg]:!text-coral"><LogOut /> ออกจากระบบ</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
       </div>
 
-      <div className="flex gap-2 px-4 pb-3 sm:px-6 md:hidden">
+      {onSearch && <div className="flex gap-2 px-4 pb-3 sm:px-6 md:hidden">
         <SearchField query={query} onSearch={onSearch} className="h-11 flex-1 rounded-2xl" />
-        <button
+        <Link
+          href="/wallet"
           aria-label="ยอดเงิน ฿1,250.00 แตะเพื่อเติมเงิน"
           className="shine flex h-11 shrink-0 items-center gap-1.5 rounded-2xl bg-primary px-3 text-[13px] font-semibold text-ink transition-transform active:scale-95 sm:hidden"
         >
@@ -235,8 +251,9 @@ export function StoreHeader({
           <span className="grid size-5 place-items-center rounded-md bg-coral text-white">
             <Plus className="size-3" />
           </span>
-        </button>
-      </div>
+        </Link>
+      </div>}
+      <Dialog open={logoutInfoOpen} onOpenChange={setLogoutInfoOpen}><DialogContent><DialogTitle>ออกจากระบบ</DialogTitle><DialogDescription className="mt-2">เว็บไซต์ตัวอย่างนี้ยังไม่ได้เชื่อมต่อระบบเข้าสู่ระบบ จึงยังไม่สามารถออกจากบัญชีได้</DialogDescription><button type="button" onClick={() => setLogoutInfoOpen(false)} className="mt-5 h-10 w-full rounded-xl bg-primary text-sm font-bold text-ink">เข้าใจแล้ว</button></DialogContent></Dialog>
     </header>
   );
 }

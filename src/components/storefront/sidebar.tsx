@@ -2,10 +2,12 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   ArrowUpRight, BadgePercent, BookOpen, ChevronRight, CircleHelp,
   Dices, Gamepad2, Headphones, History, Home, Newspaper,
-  Package, ShieldCheck, ShoppingBag, Sparkles, Wallet, X,
+  Package, Settings, ShieldCheck, ShoppingBag, Sparkles, User, Wallet, X,
   type LucideIcon,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -28,30 +30,37 @@ const tones = {
 };
 
 const shopLinks: NavItem[] = [
-  { id: "home", icon: Home, label: "หน้าแรก", href: "#home", tone: tones.sunshine },
-  { id: "games", icon: Gamepad2, label: "เติมเกม", href: "#games", tone: tones.coral },
-  { id: "accounts", icon: ShoppingBag, label: "ซื้อไอดีเกม", href: "#accounts", tone: tones.mint },
-  { id: "digital", icon: Package, label: "สินค้าดิจิทัล", href: "#digital", tone: tones.emerald },
-  { id: "premium", icon: Sparkles, label: "แอปพรีเมียม", href: "#premium", tone: tones.coral },
-  { id: "boxes", icon: Dices, label: "กล่องสุ่ม", href: "#promotions", tone: tones.pastel },
-  { id: "promotions", icon: BadgePercent, label: "โปรโมชั่น", href: "#promotions", tone: tones.coral },
+  { id: "home", icon: Home, label: "หน้าแรก", href: "/#home", tone: tones.sunshine },
+  { id: "games", icon: Gamepad2, label: "เติมเกม", href: "/games", tone: tones.coral },
+  { id: "accounts", icon: ShoppingBag, label: "ซื้อไอดีเกม", href: "/accounts", tone: tones.mint },
+  { id: "digital", icon: Package, label: "สินค้าดิจิทัล", href: "/digital", tone: tones.emerald },
+  { id: "premium", icon: Sparkles, label: "แอปพรีเมียม", href: "/premium", tone: tones.coral },
+  { id: "boxes", icon: Dices, label: "กล่องสุ่ม", href: "/boxes", tone: tones.pastel },
+  { id: "promotions", icon: BadgePercent, label: "โปรโมชั่น", href: "/promotions", tone: tones.coral },
 ];
 
 const accountLinks: NavItem[] = [
-  { id: "history", icon: History, label: "ประวัติการสั่งซื้อ", href: "#", tone: tones.mint },
-  { id: "wallet", icon: Wallet, label: "กระเป๋าเงิน", href: "#", tone: tones.emerald },
+  { id: "profile", icon: User, label: "โปรไฟล์", href: "/profile", tone: tones.sunshine },
+  { id: "history", icon: History, label: "ประวัติการสั่งซื้อ", href: "/orders", tone: tones.mint },
+  { id: "wallet", icon: Wallet, label: "กระเป๋าเงิน", href: "/wallet", tone: tones.emerald },
+  { id: "settings", icon: Settings, label: "ตั้งค่าบัญชี", href: "/settings", tone: tones.pastel },
 ];
 
+const routeSections: Record<string, string> = { "/profile": "profile", "/how-to": "how", "/games": "games", "/accounts": "accounts", "/digital": "digital", "/premium": "premium", "/boxes": "boxes", "/promotions": "promotions", "/help": "help", "/orders": "history", "/wallet": "wallet", "/settings": "settings", "/articles": "news" };
+
 const exploreLinks: NavItem[] = [
-  { id: "news", icon: Newspaper, label: "ข่าวสารและบทความ", href: "#news", tone: tones.sunshine },
-  { id: "how", icon: BookOpen, label: "วิธีการเติมเกม", href: "#how", tone: tones.pastel },
-  { id: "help", icon: CircleHelp, label: "ศูนย์ช่วยเหลือ", href: "#how", tone: tones.mint },
+  { id: "news", icon: Newspaper, label: "ข่าวสารและบทความ", href: "/articles", tone: tones.sunshine },
+  { id: "how", icon: BookOpen, label: "วิธีการเติมเกม", href: "/how-to", tone: tones.pastel },
+  { id: "help", icon: CircleHelp, label: "ศูนย์ช่วยเหลือ", href: "/help", tone: tones.mint },
 ];
 
 function useActiveSection() {
   const [active, setActive] = useState("home");
+  const pathname = usePathname();
+  const onHome = pathname === "/";
 
   useEffect(() => {
+    if (!onHome) return;
     const sections = ["home", "games", "accounts", "digital", "premium", "promotions", "news", "how", "reviews"]
       .map((id) => document.getElementById(id))
       .filter((element): element is HTMLElement => element !== null);
@@ -63,14 +72,14 @@ function useActiveSection() {
     }, { rootMargin: "-80px 0px -65% 0px" });
     sections.forEach((section) => observer.observe(section));
     return () => observer.disconnect();
-  }, []);
+  }, [onHome]);
 
-  return { active, setActive };
+  return { active: onHome ? active : (routeSections[pathname] ?? routeSections[`/${pathname.split("/")[1]}`] ?? ""), setActive };
 }
 
 export function Brand() {
   return (
-    <a href="#home" className="block min-w-0 flex-1 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary" aria-label="PK-TOPUP หน้าแรก">
+    <Link href="/" className="block min-w-0 flex-1 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary" aria-label="PK-TOPUP หน้าแรก">
       <Image
         src="/logo/logo.png"
         alt="PK-TOPUP"
@@ -80,7 +89,7 @@ export function Brand() {
         loading="eager"
         className="h-auto w-full object-contain"
       />
-    </a>
+    </Link>
   );
 }
 
@@ -100,7 +109,7 @@ function NavGroup({ title, links, active, onNavigate }: {
           const selected = active === id;
           return (
             <li key={id}>
-              <a
+              <Link
                 href={href}
                 onClick={() => onNavigate(id)}
                 aria-current={selected ? "location" : undefined}
@@ -117,7 +126,7 @@ function NavGroup({ title, links, active, onNavigate }: {
                 </span>
                 <span className="flex-1">{label}</span>
                 {selected && <ChevronRight className="size-3.5 text-ink/60" />}
-              </a>
+              </Link>
             </li>
           );
         })}
@@ -153,17 +162,18 @@ export function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
       </nav>
 
       <div className="shrink-0 space-y-3 border-t border-border bg-background px-4 pb-4 pt-4">
-        <a href="#games" onClick={onNavigate} className="group relative block overflow-hidden rounded-xl border border-primary/40 bg-section p-3.5 transition hover:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
+        <Link href="/#games" onClick={onNavigate} className="group relative flex min-h-64 flex-col overflow-hidden rounded-xl border border-primary/40 bg-section p-3.5 transition hover:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
+          <span aria-hidden className="pointer-events-none absolute inset-x-0 top-0 bottom-14 bg-[url('/sidebarcover.png')] bg-cover bg-bottom transition-transform duration-500 group-hover:scale-105" />
           <div className="relative flex items-center gap-2.5">
             <div><p className="text-xs font-semibold text-foreground">สิทธิพิเศษสำหรับสมาชิก</p><p className="mt-0.5 text-[10px] text-muted-foreground">เติมคุ้มกว่า รับส่วนลดทุกวัน</p></div>
           </div>
-          <span className="relative mt-3 flex items-center justify-between rounded-lg bg-primary px-3 py-2 text-[11px] font-semibold text-ink transition group-hover:bg-primary-hover">สมัครสมาชิกฟรี<ArrowUpRight className="size-3.5" /></span>
-        </a>
-        <a href="#reviews" onClick={onNavigate} className="group flex items-center gap-2.5 rounded-lg px-1 py-1.5 text-muted-foreground transition hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
+          <span className="relative mt-auto flex items-center justify-between rounded-lg bg-primary px-3 py-2 text-[11px] font-semibold text-ink transition group-hover:bg-primary-hover">สมัครสมาชิกฟรี<ArrowUpRight className="size-3.5" /></span>
+        </Link>
+        <Link href="/help" onClick={onNavigate} className="group flex items-center gap-2.5 rounded-lg px-1 py-1.5 text-muted-foreground transition hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
           <span className="grid size-8 place-items-center rounded-lg bg-mint/40 text-success"><Headphones className="size-4" /></span>
           <div className="flex-1"><p className="text-[11px]">ต้องการความช่วยเหลือ?</p><p className="text-[9px] text-muted-foreground">ทีมงานพร้อมดูแลคุณ</p></div>
           <ArrowUpRight className="size-3.5 text-muted-foreground group-hover:text-foreground" />
-        </a>
+        </Link>
         <p className="flex items-center justify-between border-t border-border pt-3 text-[9px] text-muted-foreground"><span>© 2026 PK-TOPUP</span><span className="flex items-center gap-1"><ShieldCheck className="size-3" /> ปลอดภัย 100%</span></p>
       </div>
     </div>

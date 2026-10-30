@@ -1,5 +1,6 @@
 "use client";
 
+import { accounts } from "@/lib/accounts";
 import { useState } from "react";
 import { ArrowRight, Crown, Flame, ShoppingCart } from "lucide-react";
 import { games, type Game } from "@/lib/games";
@@ -9,7 +10,8 @@ import { Artwork } from "./artwork";
 import { SectionHeading } from "./section-heading";
 import { DigitalProducts } from "./digital-products";
 
-export type CartItem = { name: string; price: number };
+/** `art` is an Artwork name or premium-app id, used for the cart thumbnail. */
+export type CartItem = { name: string; price: number; art?: string };
 
 const gameFilters: Record<string, Game["category"] | null> = {
   ทั้งหมด: null,
@@ -18,13 +20,7 @@ const gameFilters: Record<string, Game["category"] | null> = {
   "Game Card": "card",
 };
 
-const accounts = [
-  { game: "rov", title: "ไอดี RoV", detail: "Rank Conqueror | สกิน 120+", price: 1290, tag: "HOT" },
-  { game: "genshin", title: "ไอดี Genshin Impact", detail: "AR 60 | ตัวละคร 5★ ครบ", price: 2490, tag: "NEW" },
-  { game: "freefire", title: "ไอดี Free Fire", detail: "ชุดหายาก | เพชรสุดคุ้ม", price: 1990, tag: "HOT" },
-  { game: "valorant", title: "ไอดี Valorant", detail: "Rank Immortal | สกินครบ", price: 2990 },
-  { game: "pubgm", title: "ไอดี PUBG Mobile", detail: "สกินระดับพรีเมียม", price: 1590 },
-];
+const featuredAccounts = accounts.filter((a) => a.featured);
 
 const matches = (name: string, query: string) => name.toLowerCase().includes(query.trim().toLowerCase());
 const minPrice = (game: Game) => Math.min(...game.packages.map((p) => p.price));
@@ -47,7 +43,7 @@ export function ProductCatalog({ query, onAdd }: { query: string; onAdd: (item: 
   const filteredGames = games.filter(
     (g) => (!gameFilters[gameFilter] || g.category === gameFilters[gameFilter]) && matches(g.name, query)
   );
-  const filteredAccounts = accounts.filter(
+  const filteredAccounts = featuredAccounts.filter(
     (a) => (accountFilter === "ทั้งหมด" || a.title.endsWith(accountFilter)) && matches(a.title, query)
   );
 
@@ -93,7 +89,7 @@ export function ProductCatalog({ query, onAdd }: { query: string; onAdd: (item: 
       </section>
 
       <section id="accounts">
-        <SectionHeading title="ไอดีเกมแนะนำ" icon={Crown} href="#accounts">
+        <SectionHeading title="ไอดีเกมแนะนำ" icon={Crown} href="/accounts">
           <ChipGroup
             label="กรองไอดีเกม"
             options={["ทั้งหมด", "RoV", "Free Fire", "Genshin Impact", "Valorant"]}
@@ -122,7 +118,7 @@ export function ProductCatalog({ query, onAdd }: { query: string; onAdd: (item: 
                     <strong className="text-lg">฿{a.price.toLocaleString()}</strong>
                     <button
                       aria-label={`เพิ่ม ${a.title} ลงตะกร้า`}
-                      onClick={() => onAdd({ name: a.title, price: a.price })}
+                      onClick={() => onAdd({ name: a.title, price: a.price, art: a.game })}
                       className="grid size-9 place-items-center rounded-xl bg-primary text-ink transition hover:bg-coral hover:text-white"
                     >
                       <ShoppingCart className="size-4" />

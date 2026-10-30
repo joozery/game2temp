@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { CheckCircle2, ShoppingCart, Trash2 } from "lucide-react";
+import { OrderThumb } from "@/components/account/order-thumb";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetDescription, SheetTitle } from "@/components/ui/sheet";
 import { MotionProvider, useSectionReveal } from "@/components/effects/motion";
@@ -88,8 +89,9 @@ export function Storefront() {
           {cart.length ? (
             <ul className="mt-6 flex-1 divide-y divide-border overflow-y-auto">
               {cart.map((item, i) => (
-                <li key={`${item.name}-${i}`} className="flex items-center justify-between gap-3 py-4">
-                  <div>
+                <li key={`${item.name}-${i}`} className="flex items-center gap-3 py-4">
+                  {item.art && <OrderThumb art={item.art} name={item.name} className="size-14" />}
+                  <div className="min-w-0 flex-1">
                     <p className="font-medium">{item.name}</p>
                     <p className="text-sm text-muted-foreground">฿{item.price.toLocaleString()}</p>
                   </div>

@@ -6,11 +6,11 @@ import { staggerChild, staggerParent } from "@/components/effects/motion";
 
 const actions: { label: string; href: string; icon: LucideIcon; tile: string; badge?: string }[] = [
   { label: "เติมเกม", href: "#games", icon: Gamepad2, tile: "from-primary to-primary-hover text-ink", badge: "HOT" },
-  { label: "ไอดีเกม", href: "#accounts", icon: ShoppingBag, tile: "from-coral/80 to-coral text-white" },
-  { label: "บัตรเติมเงิน", href: "#digital", icon: Package, tile: "from-mint to-success text-white" },
-  { label: "แอปพรีเมียม", href: "#premium", icon: Sparkles, tile: "from-coral to-primary text-white", badge: "NEW" },
-  { label: "กล่องสุ่ม", href: "#promotions", icon: Dices, tile: "from-mint/70 to-mint text-ink" },
-  { label: "วิธีเติม", href: "#how", icon: BookOpen, tile: "from-section to-primary text-ink" },
+  { label: "ไอดีเกม", href: "/accounts", icon: ShoppingBag, tile: "from-coral/80 to-coral text-white" },
+  { label: "บัตรเติมเงิน", href: "/digital", icon: Package, tile: "from-mint to-success text-white" },
+  { label: "แอปพรีเมียม", href: "/premium", icon: Sparkles, tile: "from-coral to-primary text-white", badge: "NEW" },
+  { label: "กล่องสุ่ม", href: "/boxes", icon: Dices, tile: "from-mint/70 to-mint text-ink" },
+  { label: "วิธีเติม", href: "/how-to", icon: BookOpen, tile: "from-section to-primary text-ink" },
 ];
 
 /** App-style shortcut icons shown under the hero on phones and tablets. */

@@ -2,21 +2,13 @@
 
 import { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, Package, ShoppingCart, Ticket } from "lucide-react";
+import { digitalProducts, type DigitalProduct } from "@/lib/digital-products";
 import { ChipGroup } from "@/components/ui/toggle-group";
 import { Artwork } from "./artwork";
 import { SectionHeading } from "./section-heading";
 import type { CartItem } from "./product-catalog";
 
-const products = [
-  { id: "razer", name: "Razer Gold", price: 100, type: "บัตรเติมเกม" },
-  { id: "garena", name: "Garena Shells", price: 50, type: "บัตรเติมเกม" },
-  { id: "truemoney", name: "TrueMoney", price: 50, type: "บริการเสริม" },
-  { id: "playstation", name: "PlayStation Card", price: 300, type: "บัตรเติมเกม" },
-  { id: "steam", name: "Steam Wallet", price: 300, type: "ไอเทมเกม" },
-  { id: "xbox", name: "Xbox Gift Card", price: 300, type: "บัตรเติมเกม" },
-];
-
-type DigitalProduct = (typeof products)[number];
+const products = digitalProducts;
 
 function DigitalProductCard({ product, onAdd }: { product: DigitalProduct; onAdd: (item: CartItem) => void }) {
   return (
@@ -32,7 +24,7 @@ function DigitalProductCard({ product, onAdd }: { product: DigitalProduct; onAdd
         <h3 className="min-h-10 text-sm font-semibold leading-5">{product.name}</h3>
         <div className="mt-3 flex items-end justify-between gap-2 border-t border-border/60 pt-3">
           <div><p className="text-[10px] text-muted-foreground">เริ่มต้น</p><p className="mt-0.5 text-lg font-semibold leading-none tracking-tight"><span className="mr-0.5 text-sm">฿</span>{product.price.toLocaleString("th-TH")}</p></div>
-          <button type="button" aria-label={`เพิ่ม ${product.name} ลงตะกร้า`} onClick={() => onAdd({ name: product.name, price: product.price })} className="grid size-9 shrink-0 place-items-center rounded-xl bg-primary text-ink transition hover:bg-coral hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"><ShoppingCart className="size-4" /></button>
+          <button type="button" aria-label={`เพิ่ม ${product.name} ลงตะกร้า`} onClick={() => onAdd({ name: product.name, price: product.price, art: product.id })} className="grid size-9 shrink-0 place-items-center rounded-xl bg-primary text-ink transition hover:bg-coral hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"><ShoppingCart className="size-4" /></button>
         </div>
       </div>
     </article>
@@ -87,7 +79,7 @@ export function DigitalProducts({ query, onAdd }: { query: string; onAdd: (item:
   const items = products.filter((product) => (filter === "ทั้งหมด" || product.type === filter) && product.name.toLowerCase().includes(query.trim().toLowerCase()));
   return (
     <section id="digital">
-      <SectionHeading title="สินค้าดิจิทัล" icon={Package}>
+      <SectionHeading title="สินค้าดิจิทัล" icon={Package} href="/digital">
         <ChipGroup label="กรองสินค้าดิจิทัล" options={["ทั้งหมด", "บัตรเติมเกม", "ไอเทมเกม", "บริการเสริม"]} value={filter} onValueChange={setFilter} />
       </SectionHeading>
       {items.length ? <DigitalCarousel key={`${filter}:${query}`} items={items} onAdd={onAdd} /> : <p className="rounded-2xl border border-dashed border-border py-12 text-center text-sm text-muted-foreground">ไม่พบสินค้าที่ค้นหา ลองเปลี่ยนหมวดหรือคำค้นหา</p>}

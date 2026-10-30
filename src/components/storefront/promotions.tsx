@@ -8,9 +8,9 @@ const ctaClass =
 export function Promotions() {
   return (
     <section id="promotions">
-      <SectionHeading title="โปรโมชั่นเติมเกม" subtitle="ดีลพิเศษอัปเดตทุกสัปดาห์" icon={Megaphone} href="#games" />
+      <SectionHeading title="โปรโมชั่นเติมเกม" subtitle="ดีลพิเศษอัปเดตทุกสัปดาห์" icon={Megaphone} href="/promotions" />
       <div className="grid gap-4 lg:grid-cols-[1.25fr_1fr]">
-        <a href="#games" className="group relative isolate flex min-h-72 overflow-hidden rounded-3xl bg-section p-7 text-foreground sm:p-9">
+        <a href="/promotions" className="group relative isolate flex min-h-72 overflow-hidden rounded-3xl bg-section p-7 text-foreground sm:p-9">
           <div className="absolute inset-y-0 right-0 -z-10 w-2/3">
             <Artwork name="genshin" />
           </div>
@@ -31,7 +31,7 @@ export function Promotions() {
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
           <a
-            href="#accounts"
+            href="/boxes"
             className="group relative isolate flex min-h-40 flex-col justify-center overflow-hidden rounded-3xl bg-mint bg-cover bg-right p-6 text-foreground"
             style={{ backgroundImage: 'url("/images/mystery-box.png")' }}
           >
@@ -44,7 +44,7 @@ export function Promotions() {
             </span>
           </a>
           <a
-            href="#accounts"
+            href="/accounts"
             className="group relative isolate flex min-h-40 flex-col justify-center overflow-hidden rounded-3xl bg-[#ffe3e4] bg-cover p-6 text-foreground"
             style={{ backgroundImage: 'url("/images/hero-gaming.png")', backgroundPosition: "74% 40%" }}
           >

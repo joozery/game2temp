@@ -29,7 +29,7 @@ export function Community() {
 
       <div className="grid gap-8 xl:grid-cols-[1.7fr_1fr]">
         <section id="news">
-          <SectionHeading title="ข่าวสาร และบทความ" icon={Newspaper} href="#news" />
+          <SectionHeading title="ข่าวสาร และบทความ" icon={Newspaper} href="/articles" />
           <div className="grid gap-4 sm:grid-cols-3">
             {news.map((n) => (
               <article key={n.title} className="group overflow-hidden rounded-2xl border border-border bg-card">
